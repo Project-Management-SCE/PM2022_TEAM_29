@@ -1,9 +1,16 @@
 pipeline { 
 agent any 
     stages { 
-        stage ('Build') { 
- 
-        }
+      stage('Build') {
+            agent {
+                docker {
+                    image 'simagix/google-map-api:latest'
+                    reuseNode true
+                }
+            }
+            steps {
+                sh 'gradle --version'
+            }
         stage ('Test') { 
         
         }
@@ -19,3 +26,4 @@ agent any
  
     }           
  }
+}

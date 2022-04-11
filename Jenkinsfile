@@ -18,8 +18,7 @@ pipeline {
             }
         }
         stage('Test') {
-            steps {
-            }
+            
         }
       }
 }

@@ -155,8 +155,8 @@ def useror():
         return redirect(url_for("logoutorganization"))
     return render_template('organization.html', form=form)
 
-@app.route('/loginadmin',methods=['GET', 'POST'])
-def loginadmin():
+@app.route('/loginAdmin',methods=['GET', 'POST'])
+def loginAdmin():
     Database()
     form = LoginForm()
     cursor.execute("SELECT * FROM `admin` WHERE `username` = ? and `password` = ?",

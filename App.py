@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, flash, session, redirect, url_for, abort
 import sqlite3
-from forms import signupForm, SignOutForm, LoginForm
+from forms import signupForm, SignOutForm, LoginForm, signupFormOrg
 
 app = Flask(__name__)
 
@@ -74,6 +74,36 @@ def volunteer():
 def volunteerPage():
     return render_template('volunteer.html')
 
+@app.route('/registerOrg', methods=['GET', 'POST'])
+def registerOrg():
+    Database()
+    form = signupFormOrg()
+    if request.method == 'POST':
+        username = form.username.data
+        password = form.password.data
+        name = form.name.data
+        age = form.age.data
+        location = form.location.data
+        phone = form.phone.data
+        maxvol = form.maxvol.data
+        hobby = form.hobby.data
+        cursor.execute("SELECT * FROM `organization` WHERE `username` = ?", (username,))
+        if cursor.fetchone() is not None:
+            flash("username already exist")
+            return render_template('registerOrg.html', form=form)
+        else:
+            insert_organization(str(username), str(password), str(name), str(age), str(location), str(phone), str(maxvol), str(hobby))
+            cursor.close()
+            conn.close()
+    flash("successfully created!")
+    return render_template('registerOrg.html', form=form)
+def insert_organization(username, password, age, location, phone, name, maxvol, hobby):
+    try:
+        cursor.execute("INSERT INTO `organization` (username, password, age, location, phone, name, maxvol, hobby) VALUES(?, ?, ?, ?,?,?,?,?)",
+                       (username, password, age, location, phone, name, maxvol, hobby))
+        conn.commit()
+    except ValueError:
+        print(ValueError)
 @app.route('/uservolunteer',methods=['GET', 'POST'])
 def uservolunteer():
     form = SignOutForm()
@@ -99,11 +129,11 @@ def login():
     #     return render_template('login.html', form=form)
 
 
-
 @app.route('/logout')
 def logout():
     session.pop("uservol", None)
     return redirect(url_for("home"))
+
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -26,3 +26,16 @@ class LoginForm(FlaskForm):
     username = StringField(label='username', validators=[DataRequired(), Length(min=4, max=50)])
     password = PasswordField(label='password', validators=[DataRequired(), Length(min=5, max=50)])
     submit = SubmitField('Log in')
+
+
+class signupFormOrg(FlaskForm):
+    username = StringField(label='username', validators=[DataRequired(), Length(min=4, max=30)])
+    password = PasswordField(label='password', validators=[DataRequired(), Length(min=5, max=8)])
+    age = StringField(label='age limit', validators=[DataRequired(), Length(min=1, max=20)])
+    location = StringField(label='location', validators=[DataRequired(), Length(min=3, max=50)])
+    phone = StringField(label='phone', validators=[DataRequired(), Length(min=3, max=20)])
+    name = StringField(label='name of the organization', validators=[DataRequired(), Length(min=3, max=50)])
+    maxvol = StringField(label='maximum number of volunteers', validators=[DataRequired(), Length(min=1, max=50)])
+    hobby = StringField(label='the organization volunteering field', validators=[DataRequired(), Length(min=3, max=50)])
+    submit = SubmitField(label='Sign up')
+

@@ -161,5 +161,13 @@ def logout():
     session.pop("uservol", None)
     return redirect(url_for("home"))
 
+
+
+@app.route('/logoutorganization')
+def logoutorganization():
+    session.pop("userorg", None)
+    return redirect(url_for("home"))
+
+
 if __name__ == '__main__':
     app.run(debug=True)

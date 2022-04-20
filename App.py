@@ -155,19 +155,39 @@ def useror():
         return redirect(url_for("logoutorganization"))
     return render_template('organization.html', form=form)
 
+@app.route('/loginadmin',methods=['GET', 'POST'])
+def loginadmin():
+    Database()
+    form = LoginForm()
+    cursor.execute("SELECT * FROM `admin` WHERE `username` = ? and `password` = ?",
+                   (form.username.data, form.password.data))
+    # if form.validate_on_submit():
+    if cursor.fetchone() is not None:
+        session["useradm"] = form.username.data
+        return redirect(url_for("useradmin"))
+    else:
+        return render_template('loginAdmin.html', form=form, us="Not Exist")
+    # else:
+    #     if "user" in session:
+    #         return redirect(url_for("useradmin"))
+    #     return render_template('loginAdmin.html', form=form)
+
+@app.route('/useradmin',methods=['GET', 'POST'])
+def useradmin():
+    form = SignOutForm()
+    if form.validate_on_submit():
+        return redirect(url_for("logoutadmin"))
+    return render_template('Admin.html', form=form)
 
 @app.route('/logout')
 def logout():
     session.pop("uservol", None)
     return redirect(url_for("home"))
 
-
-
 @app.route('/logoutorganization')
 def logoutorganization():
     session.pop("userorg", None)
     return redirect(url_for("home"))
-
 
 if __name__ == '__main__':
     app.run(debug=True)

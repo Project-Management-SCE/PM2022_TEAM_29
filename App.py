@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, flash, session, redirect, url_for, abort
 import sqlite3
-from forms import signupForm
+from forms import signupForm, SignOutForm, LoginForm
 
 app = Flask(__name__)
 
@@ -66,7 +66,44 @@ def insert_volunteer(username, password, age, location, phone, name, hobby):
     except ValueError:
         print(ValueError)
 
+@app.route('/volunteer')
+def volunteer():
+    return redirect(url_for('volunteerPage'))
 
+@app.route('/volunteerPage')
+def volunteerPage():
+    return render_template('volunteer.html')
+
+@app.route('/uservolunteer',methods=['GET', 'POST'])
+def uservolunteer():
+    form = SignOutForm()
+    if form.validate_on_submit():
+        return redirect(url_for("logout"))
+    return render_template('volunteer.html', form=form)
+
+@app.route('/login',methods=['GET', 'POST'])
+def login():
+    Database()
+    form = LoginForm()
+    cursor.execute("SELECT * FROM `volunteer` WHERE `username` = ? and `password` = ?",
+                   (form.username.data, form.password.data))
+    # if form.validate_on_submit():
+    if cursor.fetchone() is not None:
+        session["uservol"] = form.username.data
+        return redirect(url_for("uservolunteer"))
+    else:
+        return render_template('login.html', form=form, us="Not Exist")
+    # else:
+    #     if "user" in session:
+    #         return redirect(url_for("uservolunteer"))
+    #     return render_template('login.html', form=form)
+
+
+
+@app.route('/logout')
+def logout():
+    session.pop("uservol", None)
+    return redirect(url_for("home"))
 
 if __name__ == '__main__':
     app.run(debug=True)

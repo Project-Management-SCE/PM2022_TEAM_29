@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <title>log in as Volunteer</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+        * {
+          box-sizing: border-box;
+        }
+
+        body {
+          margin: 0;
+        }
+
+        /* Style the header */
+        .header {
+          background-color: #f1f1f1;
+          padding: 20px;
+          text-align: center;
+        }
+
+        /* Style the top navigation bar */
+        .topnav {
+          overflow: hidden;
+          background-color: #333;
+        }
+
+        /* Style the topnav links */
+        .topnav a {
+          float: left;
+          display: block;
+          color: #f2f2f2;
+          text-align: center;
+          padding: 14px 16px;
+          text-decoration: none;
+        }
+
+        /* Change color on hover */
+        .topnav a:hover {
+          background-color: #ddd;
+          color: black;
+        }
+        </style>
+</head>
+<body>
+    <div  class="container w-50">
+        <form method="POST" action="" >
+          <div class="topnav">
+              <a href="/">Home page</a>
+              <a href="register">register</a>
+              <a href="loginOrg">log in as Organization</a>
+              <a href="loginAdmin">log in as Admin </a>
+            </div>
+
+          {{ form.hidden_tag() }}
+          <fieldset>
+              <legend class="border-bottom mb-4">log in as Volunteer </legend>
+               <div class="form-group">
+              {{ form.username.label(class="form-control-label") }}
+              {% if form.username.errors %}
+               {{ form.username(class="from-control form-control-lg is-invalid") }}
+                  {% for error in form.username.errors %}
+                      <span> {{error}}</span>
+                   {% endfor %}
+              {% else %}
+          {{ form.username(class="from-control form-control-lg") }}
+              {%endif%}
+               </div>
+
+                <div class="form-group">
+              {{ form.password.label(class="form-control-label") }}
+              {% if form.password.errors%}
+               {{ form.password(class="from-control form-control-lg is-invalid") }}
+                  {% for error in form.username.errors %}
+                      <span> {{error}}</span>
+                   {% endfor %}
+              {% else %}
+          {{ form.password(class="from-control form-control-lg") }}
+              {%endif%}
+               </div>
+
+
+
+
+          </fieldset>
+
+      <div class="field-group my-4">
+          {{ form.submit(class='btn btn-online-info') }}
+      </div>
+      <br>
+          </form>
+
+</div>
+
+</body>
+</html>

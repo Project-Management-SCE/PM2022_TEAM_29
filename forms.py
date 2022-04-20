@@ -18,3 +18,11 @@ class signupForm(FlaskForm):
     hour = StringField(label='hour', validators=[DataRequired(), Length(min=3, max=20)])
     hobby = StringField(label='hobby', validators=[DataRequired(), Length(min=3, max=50)])
     submit = SubmitField(label='Sign up')
+
+class SignOutForm(FlaskForm):
+    submit = SubmitField('logout')
+
+class LoginForm(FlaskForm):
+    username = StringField(label='username', validators=[DataRequired(), Length(min=4, max=50)])
+    password = PasswordField(label='password', validators=[DataRequired(), Length(min=5, max=50)])
+    submit = SubmitField('Log in')

@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, flash, session, redirect, url_for, abort
 import sqlite3
-from forms import signupForm, SignOutForm, LoginForm, signupFormOrg, DeleteVolunteerForm, DeleteOrganizationForm
+from forms import signupForm, SignOutForm, LoginForm, signupFormOrg, DeleteVolunteerForm, DeleteOrganizationForm, DeleteFieldForm
 
 app = Flask(__name__)
 
@@ -245,6 +245,32 @@ def deleteOrganization():
         return render_template('deleteOrganization.html', form=form, )
 
     return render_template('deleteOrganization.html', form=form, )
+
+@app.route('/deleteField', methods=['GET', 'POST'])
+def deleteField():
+    form = DeleteFieldForm()
+
+    if form.validate_on_submit():
+
+        req = request.form
+        nameField = req["field"]
+
+        Database()
+        global cursor
+
+        cursor.execute("SELECT * FROM `organization` WHERE `hobby` = ?",
+                       (nameField,))
+        # if form.validate_on_submit():
+        if cursor.fetchone() is not None:
+            flash("this field has been deleted")
+        else:
+            print("this Field is not exits")
+            return redirect(url_for('deleteField'))
+        cursor.execute("DELETE FROM 'organization' WHERE hobby=?", (nameField,))
+        conn.commit()
+        return render_template('deleteField.html', form=form, )
+
+    return render_template('deleteField.html', form=form, )
 
 
 

@@ -41,4 +41,8 @@ class signupFormOrg(FlaskForm):
 
 class DeleteVolunteerForm(FlaskForm):
     username = StringField("username", validators=[DataRequired()])
-    submit=SubmitField('Delete Volunteer')
+    submit = SubmitField('Delete Volunteer')
+
+class DeleteOrganizationForm(FlaskForm):
+    username = StringField("username", validators=[DataRequired()])
+    submit = SubmitField('Delete Organization')

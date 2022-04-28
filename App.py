@@ -280,8 +280,6 @@ def updateDonation():
         donation = form.donation.data
         cursor.execute("UPDATE 'admin' SET donation=? WHERE username=?", (donation, session["useradm"],))
         conn.commit()
-        cursor.close()
-        conn.close()
     flash("successfully updated!")
     return render_template('updateDonation.html', form=form, )
 

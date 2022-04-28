@@ -278,7 +278,7 @@ def updateDonation():
 
     if request.method == 'POST':
         donation = form.donation.data
-        cursor.execute("UPDATE 'admin' SET donation=? WHERE username=?", (donation, 'admin'))
+        cursor.execute("UPDATE 'admin' SET donation=? WHERE username=?", (donation, session["useradm"],))
         conn.commit()
         cursor.close()
         conn.close()

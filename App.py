@@ -6,10 +6,10 @@ app = Flask(__name__)
 
 def Database():
     global conn, cursor
-    conn = sqlite3.connect("db_Giving1.db")
+    conn = sqlite3.connect("db_Giving.db")
     cursor = conn.cursor()
     cursor.execute(
-        "CREATE TABLE IF NOT EXISTS `admin` (username TEXT PRIMARY KEY NOT NULL, password TEXT)")
+        "CREATE TABLE IF NOT EXISTS `admin` (username TEXT PRIMARY KEY NOT NULL, password TEXT, donation TEXT)")
     cursor.execute(
         "CREATE TABLE IF NOT EXISTS `organization` (username TEXT PRIMARY KEY NOT NULL, password TEXT, age INTEGER, location TEXT, phone TEXT, name TEXT, maxvol TEXT, rating TEXT, numvol TEXT, donation TEXT, hobby TEXT)")
     cursor.execute(

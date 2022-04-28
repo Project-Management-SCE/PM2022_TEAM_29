@@ -39,3 +39,6 @@ class signupFormOrg(FlaskForm):
     hobby = StringField(label='the organization volunteering field', validators=[DataRequired(), Length(min=3, max=50)])
     submit = SubmitField(label='Sign up')
 
+class DeleteVolunteerForm(FlaskForm):
+    username = StringField("username", validators=[DataRequired()])
+    submit=SubmitField('Delete Volunteer')

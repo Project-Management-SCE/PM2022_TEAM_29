@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, flash, session, redirect, url_for, abort
 import sqlite3
-from forms import signupForm, SignOutForm, LoginForm, signupFormOrg
+from forms import signupForm, SignOutForm, LoginForm, signupFormOrg, DeleteVolunteerForm
 
 app = Flask(__name__)
 
@@ -193,6 +193,35 @@ def logoutorganization():
 def logoutadmin():
     session.pop("useradm", None)
     return redirect(url_for("home"))
+
+
+@app.route('/deleteVolunteer', methods=['GET', 'POST'])
+def deleteVolunteer():
+    form = DeleteVolunteerForm()
+
+    if form.validate_on_submit():
+
+        req = request.form
+        usernameVolunteer = req["username"]
+
+        Database()
+        global cursor
+
+        cursor.execute("SELECT * FROM `volunteer` WHERE `username` = ?",
+                       (usernameVolunteer,))
+        # if form.validate_on_submit():
+        if cursor.fetchone() is not None:
+            flash("Volunteer has been deleted")
+        else:
+            print("this Volunteer is not exits")
+            return redirect(url_for('deleteVolunteer'))
+        cursor.execute("DELETE FROM 'volunteer' WHERE username=?", (usernameVolunteer,))
+        conn.commit()
+        return render_template('deleteVolunteer.html', form=form, )
+
+    return render_template('deleteVolunteer.html', form=form, )
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)

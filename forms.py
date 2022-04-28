@@ -51,3 +51,6 @@ class DeleteFieldForm(FlaskForm):
     field = StringField("filed", validators=[DataRequired()])
     submit = SubmitField('Delete Field')
 
+class UpdateDonationForm(FlaskForm):
+    donation = StringField("donation", validators=[DataRequired()])
+    submit = SubmitField('update donation')

@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, flash, session, redirect, url_for, abort
 import sqlite3
-from forms import signupForm, SignOutForm, LoginForm, signupFormOrg, DeleteVolunteerForm, DeleteOrganizationForm, DeleteFieldForm
+from forms import signupForm, SignOutForm, LoginForm, signupFormOrg, DeleteVolunteerForm, DeleteOrganizationForm, DeleteFieldForm, UpdateDonationForm
 
 app = Flask(__name__)
 
@@ -272,6 +272,18 @@ def deleteField():
 
     return render_template('deleteField.html', form=form, )
 
+@app.route('/updateDonation', methods=['GET', 'POST'])
+def updateDonation():
+    form = UpdateDonationForm()
+
+    if request.method == 'POST':
+        donation = form.donation.data
+        cursor.execute("UPDATE 'admin' SET donation=? WHERE username=?", (donation, 'admin'))
+        conn.commit()
+        cursor.close()
+        conn.close()
+    flash("successfully updated!")
+    return render_template('updateDonation.html', form=form, )
 
 
 

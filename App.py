@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, flash, session, redirect, url_for, abort
 import sqlite3
-from forms import signupForm, SignOutForm, LoginForm, signupFormOrg, DeleteVolunteerForm, DeleteOrganizationForm, DeleteFieldForm, UpdateDonationForm, DivideDonationForm
+from forms import signupForm, SignOutForm, LoginForm, signupFormOrg, DeleteVolunteerForm, DeleteOrganizationForm, DeleteFieldForm, UpdateDonationForm, DivideDonationForm, UpdateRatingForm
 
 app = Flask(__name__)
 
@@ -306,6 +306,18 @@ def divideDonation():
         conn.commit()
     flash("successfully updated!")
     return render_template('divideDonation.html', form=form, guest=users)
+
+@app.route('/updateRating', methods=['POST','GET'])
+def updateRating():
+    Database()
+    form = UpdateRatingForm()
+    if request.method == 'POST':
+        rating = form.rating.data
+        username = form.username.data
+        cursor.execute("UPDATE 'organization' SET rating=? WHERE username=?", (rating, username,))
+        conn.commit()
+    flash("successfully updated!")
+    return render_template('updateRating.html', form=form, )
 
 
 if __name__ == '__main__':

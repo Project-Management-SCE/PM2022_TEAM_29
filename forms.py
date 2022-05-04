@@ -59,3 +59,8 @@ class DivideDonationForm(FlaskForm):
     username = StringField("username", validators=[DataRequired()])
     donation = StringField("donation", validators=[DataRequired()])
     submit = SubmitField('give donation')
+
+class UpdateRatingForm(FlaskForm):
+    username = StringField("organization_name", validators=[DataRequired()])
+    rating = StringField("rating", validators=[DataRequired()])
+    submit = SubmitField('update rating')

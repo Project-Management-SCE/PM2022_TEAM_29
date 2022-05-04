@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, flash, session, redirect, url_for, abort
 import sqlite3
-from forms import signupForm, SignOutForm, LoginForm, signupFormOrg, DeleteVolunteerForm, DeleteOrganizationForm, DeleteFieldForm, UpdateDonationForm
+from forms import signupForm, SignOutForm, LoginForm, signupFormOrg, DeleteVolunteerForm, DeleteOrganizationForm, DeleteFieldForm, UpdateDonationForm, DivideDonationForm
 
 app = Flask(__name__)
 
@@ -283,6 +283,29 @@ def updateDonation():
     flash("successfully updated!")
     return render_template('updateDonation.html', form=form, )
 
+@app.route('/divideDonation', methods=['GET', 'POST'])
+def divideDonation():
+    session["useradm"] = "admin"
+    guest = cursor.execute("SELECT donation FROM `admin` WHERE `username` = ?", (session["useradm"],))
+    str1 = ''
+    users=[]
+    for x in guest:
+        str1 = str1.join(x)
+        users.append(str1)
+    form = DivideDonationForm()
+
+
+    if request.method == 'POST':
+        donation = form.donation.data
+        username = form.username.data
+        cursor.execute("UPDATE 'organization' SET donation=? WHERE username=?", (donation, username,))
+        conn.commit()
+        aa = int(str1)-int(donation)
+        s = str(aa)
+        cursor.execute("UPDATE 'admin' SET donation=? WHERE username=?", (aa, session["useradm"],))
+        conn.commit()
+    flash("successfully updated!")
+    return render_template('divideDonation.html', form=form, guest=users)
 
 
 if __name__ == '__main__':

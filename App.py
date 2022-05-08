@@ -97,6 +97,7 @@ def registerOrg():
             conn.close()
     flash("successfully created!")
     return render_template('registerOrg.html', form=form)
+#this to insert an organization 
 def insert_organization(username, password, age, location, phone, name, maxvol, hobby):
     try:
         cursor.execute("INSERT INTO `organization` (username, password, age, location, phone, name, maxvol, hobby) VALUES(?, ?, ?, ?,?,?,?,?)",

@@ -39,7 +39,7 @@ pipeline {
             steps {
                 withEnv(["HOME=${env.WORKSPACE}"]) {
                     dir("PM2022_TEAM_29"){
-                        sh "python -m coverage run --include='codejana_flask/*' App.py test"
+                        sh "python -m coverage run App.py test"
                         sh "python -m coverage report"
                     }
                 }

@@ -284,7 +284,7 @@ def updateDonation():
     flash("successfully updated!")
     return render_template('updateDonation.html', form=form, )
 
-@app.route('/divideDonation', methods=['GET', 'POST'])
+@app.route('/divideDonation', methods=['GET', 'POST']) #donation value
 def divideDonation():
     session["useradm"] = "admin"
     guest = cursor.execute("SELECT donation FROM `admin` WHERE `username` = ?", (session["useradm"],))

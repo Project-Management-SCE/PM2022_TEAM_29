@@ -1,54 +1,38 @@
 pipeline {
-agent {
-		        docker {
-		            image 'python:3.8'
-		
-
-		        }
-		    }
-		    stages {
-		        stage('build') {
-		            steps {
-		                withEnv(["HOME=${env.WORKSPACE}"]) {
-					
-		                    sh "django-admin startproject Giving"
-		                }
-		            }
-		        }
-		        stage('test') {
-		            steps {
-		                withEnv(["HOME=${env.WORKSPACE}"]) {
-		                    dir("PM2022_TEAM_29"){
-		                        sh "python manage.py test"
-		                    }
-		                }
-		            }
-		        }
-		     stage('coverage') {
-            steps {
-                withEnv(["HOME=${env.WORKSPACE}"]) {
-                    dir("PM2022_TEAM_29"){
-                        sh "python -m coverage run --include='app/*' manage.py test"
-                        sh "python -m coverage report"
-                    }
-                }
-            }
+  agent { 
+      docker { 
+          image 'python:3.7.2' } }
+  stages {
+    stage('Build') {
+      steps {
+        withEnv(["HOME=${env.WORKSPACE}"]){
+            sh 'pip install --user flask'
+            sh 'pip install --user pyrebase'
+            sh 'pip install --user Flask-WTF'
+            sh 'pip install --user email_validator'
+            sh 'pip install --user --upgrade firebase-admin'
+            sh 'pip install --user json-e'
+            sh 'pip install --user requests --upgrade'
+            sh 'pip install --user Flask-JSGlue'
+            sh 'pip install --user pyflakes'
         }
-		    
-			    stage('pylint') {
-            steps {
-                withEnv(["HOME=${env.WORKSPACE}"]) {
-                    dir("PM2022_TEAM_29/Giving"){
-			sh "python -m pylint settings.py"
-			sh "python -m pylint urls.py"
-                        sh "python -m pylint _init_.py"
-		    }
-		    dir("PM2022_TEAM_29/app"){
-                        sh "python -m pylint admin.py"
-		    }
-		}
-	    }
-			    }
-			    
-		    }
+      }
+    }
+     
+    stage('Cloning Git') {
+      steps {
+       git 'https://github.com/Project-Management-SCE/PM2022_TEAM_29.git'
+      }
+    }
+    stage('test') {
+      steps {
+        withEnv(["HOME=${env.WORKSPACE}"]){
+            sh 'python test2.py'
+            sh 'python -m pyflakes templates/'
+        }
+      }   
+    } 
+  }
+
+
 }

@@ -335,7 +335,13 @@ def delete(usename):
     Database()
     global cursor
     cursor.execute("DELETE FROM 'volunteer' WHERE username=?", (usename,))
-
     conn.commit()
+
+def delete_org(usename):
+    Database()
+    global cursor
+    cursor.execute("DELETE FROM 'volunteer' WHERE username=?", (usename,))
+    conn.commit()
+
 if __name__ == '__main__':
     app.run(debug=True)

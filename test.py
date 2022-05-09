@@ -46,7 +46,15 @@ class MyTestCase(unittest.TestCase):
         except:
             self.assertTrue(False)
 
-
+    def test_delete_organization(self):
+        App.Database()
+        try:
+            username = "ssss"
+            global cursor
+            App.delete_org(username)
+            self.assertTrue(True)
+        except:
+            self.assertTrue(False)
 
 if __name__ == '__main__':
     unittest.main()

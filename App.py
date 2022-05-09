@@ -331,5 +331,11 @@ def addField():
     flash("successfully added!")
     return render_template('addField.html', form=form, )
 
+def delete(usename):
+    Database()
+    global cursor
+    cursor.execute("DELETE FROM 'volunteer' WHERE username=?", (usename,))
+
+    conn.commit()
 if __name__ == '__main__':
     app.run(debug=True)

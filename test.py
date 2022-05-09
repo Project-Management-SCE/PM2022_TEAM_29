@@ -36,6 +36,16 @@ class MyTestCase(unittest.TestCase):
             self.assertFalse(True)
         except:
             self.assertFalse(False)
+    def test_delete(self):
+        App.Database()
+        try:
+            username = "sujood"
+            global cursor
+            App.delete(username)
+            self.assertTrue(True)
+        except:
+            self.assertTrue(False)
+
 
 
 if __name__ == '__main__':

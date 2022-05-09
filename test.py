@@ -24,7 +24,7 @@ class MyTestCase(unittest.TestCase):
     def test_fall_register(self):
         App.Database()
         try:
-            username = "sujood"
+            username = "sondoss"
             password = "123445"
             name = "sama"
             age = 23

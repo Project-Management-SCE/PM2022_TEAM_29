@@ -362,5 +362,11 @@ def divide_donation(donation, username):
     cursor.execute("UPDATE 'organization' SET donation=? WHERE username=?", (donation, username,))
     conn.commit()
 
+def add_field(field):
+    Database()
+    global cursor
+    cursor.execute("UPDATE 'organization' SET hobby=? WHERE username=?", (field, "ssss",))
+    conn.commit()
+    
 if __name__ == '__main__':
     app.run(debug=True)

@@ -89,11 +89,14 @@ class MyTestCase(unittest.TestCase):
             except:
                 self.assertFalse(False)
 
-    def delete_field(f):
-        Database()
-        global cursor
-        cursor.execute("DELETE FROM 'organization' WHERE hobby=?", (f,))
-        conn.commit()
+    def test_delete_field(self):
+                App.Database()
+                try:
+                    field = "hope"
+                    App.delete_field(filed)
+                    self.assertTrue(True)
+                except:
+                    self.assertTrue(True)
     def test_update_donation(self):
             App.Database()
             try:

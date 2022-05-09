@@ -33,9 +33,7 @@ pipeline {
       }   
     } 
   }
-
-
-     stage('coverage') {
+stage('coverage') {
             steps {
                 withEnv(["HOME=${env.WORKSPACE}"]) {
                     dir("PM2022_TEAM_29"){
@@ -56,8 +54,5 @@ pipeline {
 		
 	    }
 			    }
-			    
-		    }
-
 
 }

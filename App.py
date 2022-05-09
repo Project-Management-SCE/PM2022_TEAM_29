@@ -97,6 +97,7 @@ def registerOrg():
             conn.close()
     flash("successfully created!")
     return render_template('registerOrg.html', form=form)
+#this to insert an organization
 def insert_organization(username, password, age, location, phone, name, maxvol, hobby):
     try:
         cursor.execute("INSERT INTO `organization` (username, password, age, location, phone, name, maxvol, hobby) VALUES(?, ?, ?, ?,?,?,?,?)",
@@ -283,7 +284,7 @@ def updateDonation():
     flash("successfully updated!")
     return render_template('updateDonation.html', form=form, )
 
-@app.route('/divideDonation', methods=['GET', 'POST'])
+@app.route('/divideDonation', methods=['GET', 'POST']) #donation value
 def divideDonation():
     session["useradm"] = "admin"
     guest = cursor.execute("SELECT donation FROM `admin` WHERE `username` = ?", (session["useradm"],))

@@ -55,6 +55,26 @@ class MyTestCase(unittest.TestCase):
             self.assertTrue(True)
         except:
             self.assertTrue(False)
+            
+    def test_register_org(self):
+            App.Database()
+            try:
+                username = "kkk"
+                password = "78337363"
+                name = "arina"
+                age = 19
+                location = "saudi"
+                phone = "0537352882"
+                maxvol = "150"
+                hobby = "curing"
+                App.insert_organization(str(username), str(password), str(name), str(age), str(location), str(phone),
+                                    str(maxvol), str(hobby))
+                self.assertTrue(True)
+            except:
+                self.assertTrue(False)
+
+
+
 
 if __name__ == '__main__':
     unittest.main()

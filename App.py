@@ -356,5 +356,11 @@ def update_donation(donation):
     cursor.execute("UPDATE 'admin' SET donation=? WHERE username=?", (donation, session["useradm"],))
     conn.commit()
 
+def divide_donation(donation, username):
+    Database()
+    global cursor
+    cursor.execute("UPDATE 'organization' SET donation=? WHERE username=?", (donation, username,))
+    conn.commit()
+
 if __name__ == '__main__':
     app.run(debug=True)

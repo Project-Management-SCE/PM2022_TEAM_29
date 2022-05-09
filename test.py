@@ -141,5 +141,15 @@ class MyTestCase(unittest.TestCase):
             except:
                 self.assertFalse(False)
 
+    def test_divide_to_organization(self):
+            App.Database()
+            try:
+                username = "ssss"
+                donation="5000"
+                App.divide_donation(donation,username)
+                self.assertTrue(True)
+            except:
+                self.assertTrue(False)
+
 if __name__ == '__main__':
     unittest.main()

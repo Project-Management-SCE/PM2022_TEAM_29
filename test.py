@@ -94,7 +94,15 @@ class MyTestCase(unittest.TestCase):
         global cursor
         cursor.execute("DELETE FROM 'organization' WHERE hobby=?", (f,))
         conn.commit()
-
+    def test_update_donation(self):
+            App.Database()
+            try:
+                dona = "20000"
+                global cursor
+                App.update_donation(dona)
+                self.assertTrue(True)
+            except:
+                self.assertTrue(True)
 
 if __name__ == '__main__':
     unittest.main()

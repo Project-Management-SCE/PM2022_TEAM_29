@@ -89,6 +89,11 @@ class MyTestCase(unittest.TestCase):
             except:
                 self.assertFalse(False)
 
+    def delete_field(f):
+        Database()
+        global cursor
+        cursor.execute("DELETE FROM 'organization' WHERE hobby=?", (f,))
+        conn.commit()
 
 
 if __name__ == '__main__':

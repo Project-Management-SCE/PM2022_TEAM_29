@@ -154,7 +154,7 @@ class MyTestCase(unittest.TestCase):
     def test_add_field(self):
         App.Database()
         try:
-            field = "helping"
+            field = "hope"
             App.add_field(field)
             self.assertTrue(True)
         except:
@@ -170,7 +170,7 @@ class MyTestCase(unittest.TestCase):
             self.assertTrue(True)
         except:
             self.assertTrue(False)
-            
+
 
 if __name__ == '__main__':
     unittest.main()

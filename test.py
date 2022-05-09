@@ -93,7 +93,7 @@ class MyTestCase(unittest.TestCase):
                 App.Database()
                 try:
                     field = "hope"
-                    App.delete_field(filed)
+                    App.delete_field(field)
                     self.assertTrue(True)
                 except:
                     self.assertTrue(True)

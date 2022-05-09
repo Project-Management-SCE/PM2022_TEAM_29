@@ -367,6 +367,12 @@ def add_field(field):
     global cursor
     cursor.execute("UPDATE 'organization' SET hobby=? WHERE username=?", (field, "ssss",))
     conn.commit()
+
+def update_rating(rating,username):
+    Database()
+    global cursor
+    cursor.execute("UPDATE 'organization' SET rating=? WHERE username=?", (rating, username,))
+    conn.commit()
     
 if __name__ == '__main__':
     app.run(debug=True)

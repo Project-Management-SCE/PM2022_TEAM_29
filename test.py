@@ -140,7 +140,7 @@ class MyTestCase(unittest.TestCase):
                 self.assertFalse(True)
             except:
                 self.assertFalse(False)
-
+#test donation for organization
     def test_divide_to_organization(self):
             App.Database()
             try:

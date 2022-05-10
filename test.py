@@ -151,5 +151,26 @@ class MyTestCase(unittest.TestCase):
             except:
                 self.assertTrue(False)
 
+    def test_add_field(self):
+        App.Database()
+        try:
+            field = "hope"
+            App.add_field(field)
+            self.assertTrue(True)
+        except:
+            self.assertTrue(False)
+
+    def test_update_rating(self):
+        App.Database()
+        try:
+            username = "ssss"
+            rating = "3"
+            global cursor
+            App.update_rating(rating,username)
+            self.assertTrue(True)
+        except:
+            self.assertTrue(False)
+
+
 if __name__ == '__main__':
     unittest.main()

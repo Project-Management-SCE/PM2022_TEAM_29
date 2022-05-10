@@ -106,7 +106,7 @@ class MyTestCase(unittest.TestCase):
                 self.assertTrue(True)
             except:
                 self.assertTrue(True)
-
+#testing  adding organization
     def test_add_organization(self):
             App.Database()
             try:

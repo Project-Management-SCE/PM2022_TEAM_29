@@ -362,15 +362,5 @@ def divide_donation(donation, username):
     cursor.execute("UPDATE 'organization' SET donation=? WHERE username=?", (donation, username,))
     conn.commit()
 
-def updateHours():
-    form = UpdateHours()
-
-    if request.method == 'POST':
-        donation = form.hours.data
-        cursor.execute("UPDATE 'Volunteer' SET donation=? WHERE username=?", (hour, session["useradm"],))
-        conn.commit()
-    flash("successfully updated!")
-    return render_template('updateHours.html', form=form, )
-
 if __name__ == '__main__':
     app.run(debug=True)

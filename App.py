@@ -1,12 +1,13 @@
 from flask import Flask, render_template, request, flash, session, redirect, url_for, abort
 import sqlite3
 from forms import signupForm, SignOutForm, LoginForm, signupFormOrg, DeleteVolunteerForm, DeleteOrganizationForm, DeleteFieldForm, UpdateDonationForm, DivideDonationForm, UpdateRatingForm, AddFieldForm
+from datetime import datetime
 
 app = Flask(__name__)
 
 def Database():
     global conn, cursor
-    conn = sqlite3.connect("Giving_dbb.db")
+    conn = sqlite3.connect("Giving_ddb.db")
     cursor = conn.cursor()
     cursor.execute(
         "CREATE TABLE IF NOT EXISTS `admin` (username TEXT PRIMARY KEY NOT NULL, password TEXT, donation TEXT)")
@@ -19,7 +20,7 @@ def Database():
     cursor.execute(
         "CREATE TABLE IF NOT EXISTS `apply` (orgname TEXT NOT NULL,volname TEXT NOT NULL, age INTEGER, location TEXT, phone TEXT, email TEXT, meen TEXT, hobby TEXT, id TEXT, job TEXT, PRIMARY KEY(orgname,volname)) ")
     cursor.execute(
-        "CREATE TABLE IF NOT EXISTS `report` (orgg TEXT NOT NULL,voll TEXT NOT NULL, hour INTEGER, status TEXT NOT NULL,datte DATE ,PRIMARY KEY(orgg,voll)) ")
+        "CREATE TABLE IF NOT EXISTS `report` (orgg TEXT NOT NULL,voll TEXT NOT NULL, hour INTEGER, status TEXT NOT NULL,datte DATE ,PRIMARY KEY(orgg,voll,datte)) ")
 
 
 Database()
@@ -379,6 +380,5 @@ def update_rating(rating,username):
     global cursor
     cursor.execute("UPDATE 'organization' SET rating=? WHERE username=?", (rating, username,))
     conn.commit()
-    
 if __name__ == '__main__':
     app.run(debug=True)

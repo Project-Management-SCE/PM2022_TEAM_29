@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 def Database():
     global conn, cursor
-    conn = sqlite3.connect("db_Giving.db")
+    conn = sqlite3.connect("Giving_dbb.db")
     cursor = conn.cursor()
     cursor.execute(
         "CREATE TABLE IF NOT EXISTS `admin` (username TEXT PRIMARY KEY NOT NULL, password TEXT, donation TEXT)")
@@ -15,7 +15,13 @@ def Database():
     cursor.execute(
         "CREATE TABLE IF NOT EXISTS `volunteer` (username TEXT PRIMARY KEY NOT NULL, password TEXT, age INTEGER, location TEXT, phone TEXT, name TEXT, hour INTEGER, hobby TEXT)")
     cursor.execute(
-        "CREATE TABLE IF NOT EXISTS `hours` (orgname TEXT NOT NULL,volname TEXT NOT NULL, hour INTEGER, PRIMARY KEY(orgname,volname)) ")
+        "CREATE TABLE IF NOT EXISTS `hours` (orgname TEXT NOT NULL,volname TEXT NOT NULL, hour INTEGER, limitt TEXT , PRIMARY KEY(orgname,volname)) ")
+    cursor.execute(
+        "CREATE TABLE IF NOT EXISTS `apply` (orgname TEXT NOT NULL,volname TEXT NOT NULL, age INTEGER, location TEXT, phone TEXT, email TEXT, meen TEXT, hobby TEXT, id TEXT, job TEXT, PRIMARY KEY(orgname,volname)) ")
+    cursor.execute(
+        "CREATE TABLE IF NOT EXISTS `report` (orgg TEXT NOT NULL,voll TEXT NOT NULL, hour INTEGER, status TEXT NOT NULL,datte DATE ,PRIMARY KEY(orgg,voll)) ")
+
+
 Database()
 app.config['SECRET_KEY'] = 'Sujood'
 import json

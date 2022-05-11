@@ -121,7 +121,7 @@ def login():
     # if form.validate_on_submit():
     if cursor.fetchone() is not None:
         session["uservol"] = form.username.data
-        return redirect(url_for("uservolunteer"), volunteer=session["uservol"])
+        return redirect(url_for("uservolunteer"))
     else:
         return render_template('login.html', form=form, us="Not Exist")
     # else:
@@ -140,7 +140,7 @@ def loginOrg():
     # if form.validate_on_submit():
     if cursor.fetchone() is not None:
         session["userorg"] = form.username.data
-        return redirect(url_for("useror"), organization=session["userorg"])
+        return redirect(url_for("useror"))
     else:
         return render_template('loginOrg.html', form=form, us="Not Exist")
     # else:

@@ -1,15 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-home page for the organization
+    <title>Volunteer Page</title>
+
+<style>
+body, html {
+  height: 100%;
+  margin: 0;
+}
+
+body {margin:0;}
+
+.navbar {
+  overflow: hidden;
+  background-color: rgb(7, 124, 139);
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.navbar a {
+  float: left;
+  display: block;
+  color: #e7eaeb;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.navbar a:hover {
+  background: #ddd;
+  color: black;
+}
+
+
+body{
+    background-color:lightblue
+}
+
+</style>
+
+
 <div>
-    <ul>
-        <li><a href="{{url_for('logoutorganization')}}">Logout</a></li>
-    </ul>
+    <h2>Organization Page</h2>
+
+<body class=>
+    <style>
+
+        .button {
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+.button1 {background-color: #4CAF50;} /* Green */
+.button2 {background-color: #008CBA;} /* Blue */
+
+    </style>
+
+<div class="navbar">
+
+    <a href="/logoutorganization">Logout</a>
 </div>
+
 </body>
+
+
+</head>
 </html>

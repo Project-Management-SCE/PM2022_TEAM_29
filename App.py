@@ -7,20 +7,22 @@ app = Flask(__name__)
 
 def Database():
     global conn, cursor
-    conn = sqlite3.connect("Giving_db.db")
+    conn = sqlite3.connect("Giving_DB.db")
     cursor = conn.cursor()
     cursor.execute(
         "CREATE TABLE IF NOT EXISTS `admin` (username TEXT PRIMARY KEY NOT NULL, password TEXT, donation TEXT)")
     cursor.execute(
         "CREATE TABLE IF NOT EXISTS `organization` (username TEXT PRIMARY KEY NOT NULL, password TEXT, age INTEGER, location TEXT, phone TEXT, name TEXT, maxvol TEXT, rating TEXT, numvol TEXT, donation TEXT, hobby TEXT)")
     cursor.execute(
-        "CREATE TABLE IF NOT EXISTS `volunteer` (username TEXT PRIMARY KEY NOT NULL, password TEXT, age INTEGER, location TEXT, phone TEXT, name TEXT, hour INTEGER, hobby TEXT)")
+        "CREATE TABLE IF NOT EXISTS `volunteer` (username TEXT PRIMARY KEY NOT NULL, password TEXT, age INTEGER, location TEXT, phone TEXT, name TEXT, hour INTEGER, hobby TEXT, meen TEXT, pic TEXT, perm TEXT)")
     cursor.execute(
         "CREATE TABLE IF NOT EXISTS `hours` (orgname TEXT NOT NULL,volname TEXT NOT NULL, hour INTEGER, limitt TEXT , PRIMARY KEY(orgname,volname)) ")
     cursor.execute(
         "CREATE TABLE IF NOT EXISTS `apply` (orgname TEXT NOT NULL,volname TEXT NOT NULL, age INTEGER, location TEXT, phone TEXT, email TEXT, meen TEXT, hobby TEXT, id TEXT, job TEXT, PRIMARY KEY(orgname,volname)) ")
     cursor.execute(
         "CREATE TABLE IF NOT EXISTS `report` (orgg TEXT NOT NULL,voll TEXT NOT NULL, hour INTEGER, status TEXT NOT NULL,datte TEXT ,PRIMARY KEY(orgg,voll,datte)) ")
+    cursor.execute(
+        "CREATE TABLE IF NOT EXISTS `Fields` (name TEXT PRIMARY KEY NOT NULL, f TEXT) ")
 
 
 Database()
@@ -327,16 +329,16 @@ def updateRating():
     flash("successfully updated!")
     return render_template('updateRating.html', form=form, )
 
-@app.route('/addField', methods=['GET', 'POST'])
-def addField():
-    form = AddFieldForm()
-
-    if request.method == 'POST':
-        field = form.field.data
-        cursor.execute("UPDATE 'organization' SET hobby=? WHERE username=?", (field, "ssss",))
-        conn.commit()
-    flash("successfully added!")
-    return render_template('addField.html', form=form, )
+# @app.route('/addField', methods=['GET', 'POST'])
+# def addField():
+#     #form = AddFieldForm()
+#
+#     if request.method == 'POST':
+#         field = form.field.data
+#         cursor.execute("UPDATE 'organization' SET hobby=? WHERE username=?", (field, "ssss",))
+#         conn.commit()
+#     flash("successfully added!")
+#     return render_template('addField.html', form=form, )
 
 def delete(usename):
     Database()
@@ -378,7 +380,21 @@ def add_field(field):
 def update_rating(rating,username):
     Database()
     global cursor
-    cursor.execute("UPDATE 'organization' SET rating=? WHERE username=?", (rating, username,))
+    cursor.execute("UPDATE 'Fields' SET name=? WHERE username=?", (rating, username,))
     conn.commit()
+
+
+@app.route('/addFieldAdmin', methods=['GET', 'POST'])
+def addFieldAdmin():
+    form = AddFieldForm()
+
+    if request.method == 'POST':
+        field = form.field.data
+        cursor.execute(
+            "INSERT INTO `Fields` (name,f) VALUES(?,?)", (field,"ok"))
+        conn.commit()
+    flash("successfully added!")
+    return render_template('addField.html', form=form, )
+
 if __name__ == '__main__':
     app.run(debug=True)

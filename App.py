@@ -354,7 +354,7 @@ def delete_org(usename):
     cursor.execute("DELETE FROM 'volunteer' WHERE username=?", (usename,))
     conn.commit()
 
-
+#delete field of volunteering 
 def delete_field(f):
     Database()
     global cursor

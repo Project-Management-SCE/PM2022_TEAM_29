@@ -7,7 +7,7 @@ app = Flask(__name__)
 
 def Database():
     global conn, cursor
-    conn = sqlite3.connect("Giving_DB.db")
+    conn = sqlite3.connect("Giving__DB.db")
     cursor = conn.cursor()
     cursor.execute(
         "CREATE TABLE IF NOT EXISTS `admin` (username TEXT PRIMARY KEY NOT NULL, password TEXT, donation TEXT)")
@@ -23,6 +23,8 @@ def Database():
         "CREATE TABLE IF NOT EXISTS `report` (orgg TEXT NOT NULL,voll TEXT NOT NULL, hour INTEGER, status TEXT NOT NULL,datte TEXT ,PRIMARY KEY(orgg,voll,datte)) ")
     cursor.execute(
         "CREATE TABLE IF NOT EXISTS `Fields` (name TEXT PRIMARY KEY NOT NULL, f TEXT) ")
+    cursor.execute(
+        "CREATE TABLE IF NOT EXISTS `Search` (org TEXT PRIMARY KEY NOT NULL, meen TEXT, geel TEXT, mekom TEXT, hoby TEXT) ")
 
 
 Database()

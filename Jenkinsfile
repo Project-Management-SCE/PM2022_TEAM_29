@@ -10,17 +10,13 @@ pipeline {
         }
       }
     }
-  
-    stage('Deploy')
-    {
-        echo "deploying the application"
-     }
+
   }
   
   post {
         always {
             echo 'The pipeline completed'
-            junit allowEmptyResults: true, testResults:'*/test_reports/.xml'
+            junit allowEmptyResults: true
         }
         success {                   
             echo "Flask Application Up and running!!"

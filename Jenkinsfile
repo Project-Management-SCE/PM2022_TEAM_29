@@ -12,8 +12,7 @@
     }
        stage('Get Source') {
       git (https://github.com/Project-Management-SCE/PM2022_TEAM_29/blob/main/Docker.git')
-   }
-           
+   }    
        stage('Test') {
             steps {
                 echo 'Testing'
@@ -24,11 +23,7 @@
             steps {
                 echo 'Deploying.'
             }
-        }
-
-           
-           
-           
+        }  
   }
   post {
         always {

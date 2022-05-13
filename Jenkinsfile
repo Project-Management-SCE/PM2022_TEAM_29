@@ -10,6 +10,12 @@ pipeline {
         }
       }
     }
+       stage('Get Source') {
+      git (https://github.com/Project-Management-SCE/PM2022_TEAM_29/blob/main/Docker.git')
+      if (!fileExists("Docker")) {
+         error('Dockerfile missing.')
+      }
+   }
   }
   post {
         always {

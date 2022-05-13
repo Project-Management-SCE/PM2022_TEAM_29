@@ -180,5 +180,19 @@ class MyTestCase(unittest.TestCase):
         except:
             self.assertTrue(False)
 
+    def test_SearchSomeone(self):
+        App.Database()
+        try:
+            username = "ahmad"
+            meen = "male"
+            geel = 17
+            mekoom = "Ber Sheva"
+            hoby = "teaching swimming"
+            App.Search_Somone(username, meen, geel, mekoom, hoby)
+            self.assertTrue(True)
+        except:
+            self.assertTrue(False)
+
+
 if __name__ == '__main__':
     unittest.main()

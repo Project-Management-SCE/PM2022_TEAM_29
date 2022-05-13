@@ -629,6 +629,13 @@ def Show():
 
     return render_template('Show.html', guests=guests)
 
-
+def Search_Somone(username,mn, g, mm, h):
+    Database()
+    global cursor
+    cursor.execute(
+        "INSERT INTO `Search` (org, meen, geel, mekom, hoby) VALUES(?,?, ?, ?,?)",
+        (username, mn, g, mm, h))
+    conn.commit()
+    
 if __name__ == '__main__':
     app.run(debug=True)

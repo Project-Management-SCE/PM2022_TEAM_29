@@ -68,7 +68,7 @@ def register():
     flash("successfully created!")
     return render_template('register.html', form=form)
 
-
+# Add new volunteer 
 def insert_volunteer(username, password, age, location, phone, name, hobby):
     try:
         cursor.execute("INSERT INTO `volunteer` (username, password, age, location, phone, name, hobby) VALUES(?, ?, ?,?,?,?,?)",

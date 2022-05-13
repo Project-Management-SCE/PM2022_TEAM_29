@@ -1,38 +1,28 @@
-pipeline{
-   agent any
-    stages{
-        stage("Git SCM"){
-            steps{
-                git credentialsId: 'dockerid', url: 'https://github.com/Project-Management-SCE/PM2022_TEAM_29/blob/main/Jenkinsfile.git'
-            }
+pipeline {
+  agent any
+  stages {
+    stage('Build') {
+      parallel {
+        stage('Build') {
+          steps {
+            sh 'echo "building the repo"'
+          }
         }
-        stage("Build"){
-            agent {
-                docker {
-                    image 'python:3.6-alpine' 
-                }
-            }
-        }
-        stage("Build Docker Image"){
-            steps{
-                sh "docker build -t kowal20x7/flaskapi:latest ."
-            }
-        }
-        stage ("Push dockerhub"){
-            steps{
-                withCredentials([string(credentialsId: 'dockerpassid', variable: 'password')]) {
-                    sh "docker login -u kowal20x7 -p ${password}"
-                }
-        
-                sh "docker push kowal20x7/flaskapi:latest"
-            }
-        }
-        
-        stage("Run Container"){
-            steps{
-                sh "docker run -d -p 5000:5000 --name flaskapi kowal20x7/flaskapi:latest"
-            }
-        }
+      }
     }
 
+  }
+  post {
+        always {
+            echo 'The pipeline completed'
+            junit allowEmptyResults: true, testResults:'*/test_reports/.xml'
+        }
+        success {                   
+            echo "Flask Application Up and running!!"
+        }
+        failure {
+            echo 'Build stage failed'
+            error('Stopping early…')
+        }
+     }
 }

@@ -10,17 +10,17 @@ pipeline {
         }
       }
     }
-   stage('Get Source') {
+    stage('Get Source') {
      
       git ('https://github.com/Project-Management-SCE/PM2022_TEAM_29/blob/main/Docker.git')
       if (!fileExists("Docker")) {
          error('Dockerfile missing.')
       }
    }
-   stage('Build Docker') {
+    stage('Build Docker') {
          sh "sudo docker build -t flask-app ."
    }
-   stage("run docker container"){
+    stage("run docker container"){
         sh "sudo docker run -p 8000:8000 --name flask-app -d flask-app "
     }
      stage('test') {

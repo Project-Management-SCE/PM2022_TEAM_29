@@ -1,30 +1,33 @@
  pipeline {
-  agent any
-  stages {
-    stage('Build') {
-      parallel {
+  stages{
         stage('Build') {
-          steps {
-            sh 'echo "building the repo"'
+         agent {
+              docker {
+                 image 'python:3-alpine'
+              }
           }
-        }
+          steps {
+               sh 'python -m py_compile app.py'
+               stash(name: 'compiled-results', includes: 'app.py*')
+                              stash(name: 'setUpPy', includes: 'setup.py*')
+               stash(name: 'pypirc', includes: '.pypirc')
+          }
+       }
+
+       stage('Unit Test') {
+         agent {
+              docker {
+                 image 'qnib/pytest:latest'
+              }
+         }
+       }
+       stage('Cloning Git') {
+      steps {
+       git 'https://github.com/Project-Management-SCE/PM2022_TEAM_29.git'
       }
     }
-       stage('Get Source') {
-      git (https://github.com/Project-Management-SCE/PM2022_TEAM_29/blob/main/Docker.git')    
-       stage('Test') {
-            steps {
-                echo 'Testing'
-                sh 'python3 app.py' 
-            }
-        }
-     stage('Deploy') {
-            steps {
-                echo 'Deploying.'
-            }
-        }  
   }
-  post {
+     post {
         always {
             echo 'The pipeline completed'
             junit allowEmptyResults: true, testResults:'*/test_reports/.xml'
@@ -36,5 +39,5 @@
             echo 'Build stage failed'
             error('Stopping early…')
         }
-     }
+      }
 }

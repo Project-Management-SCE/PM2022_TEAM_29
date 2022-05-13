@@ -406,11 +406,5 @@ def add_Field_Admin(field):
     conn.commit()
 
 
-def update_rating(rating,username):
-    Database()
-    global cursor
-    cursor.execute("UPDATE 'organization' SET name=? WHERE username=?", (rating, username,))
-    conn.commit()
-
 if __name__ == '__main__':
     app.run(debug=True)

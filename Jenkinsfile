@@ -32,4 +32,5 @@ pipeline {
             echo 'Build stage failed'
             error('Stopping early…')
         }
+     }
 }

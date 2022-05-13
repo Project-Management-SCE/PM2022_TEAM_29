@@ -372,7 +372,7 @@ def divide_donation(donation, username):
     global cursor
     cursor.execute("UPDATE 'organization' SET donation=? WHERE username=?", (donation, username,))
     conn.commit()
-
+#Add new field of volunteering  
 def add_field(field):
     Database()
     global cursor

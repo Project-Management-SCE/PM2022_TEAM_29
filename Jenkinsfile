@@ -12,7 +12,7 @@ pipeline {
     }
      stage('test') {
          steps {
-                sh 'python test.py'
+                sh 'python test2.py'
             }
             post {
                 always {junit 'test-reports/*.xml'}

@@ -1,19 +1,19 @@
  pipeline {
-  stages{
-        stage('Build') {
-         agent {
-              docker {
-                 image 'python:3-alpine'
+  agent any {
+        stages{
+            stage('Build') {
+               agent {
+                 docker {
+                  image 'python:3-alpine'
               }
           }
-          steps {
+            steps {
                sh 'python -m py_compile app.py'
                stash(name: 'compiled-results', includes: 'app.py*')
                               stash(name: 'setUpPy', includes: 'setup.py*')
                stash(name: 'pypirc', includes: '.pypirc')
           }
        }
-
        stage('Unit Test') {
          agent {
               docker {
@@ -22,8 +22,8 @@
          }
        }
        stage('Cloning Git') {
-      steps {
-       git 'https://github.com/Project-Management-SCE/PM2022_TEAM_29.git'
+          steps {
+            git 'https://github.com/Project-Management-SCE/PM2022_TEAM_29.git'
       }
     }
   }
@@ -40,4 +40,5 @@
             error('Stopping early…')
         }
       }
+  }
 }

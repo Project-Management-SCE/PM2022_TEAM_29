@@ -1,5 +1,5 @@
- pipeline {
-  agent any {
+pipeline {
+  agent any 
         stages{
             stage('Build') {
                agent {
@@ -40,5 +40,4 @@
             error('Stopping early…')
         }
       }
-  }
 }

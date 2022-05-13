@@ -68,7 +68,7 @@ def register():
     flash("successfully created!")
     return render_template('register.html', form=form)
 
-
+# Add new volunteer 
 def insert_volunteer(username, password, age, location, phone, name, hobby):
     try:
         cursor.execute("INSERT INTO `volunteer` (username, password, age, location, phone, name, hobby) VALUES(?, ?, ?,?,?,?,?)",
@@ -372,7 +372,7 @@ def divide_donation(donation, username):
     global cursor
     cursor.execute("UPDATE 'organization' SET donation=? WHERE username=?", (donation, username,))
     conn.commit()
-
+#Add new field of volunteering  
 def add_field(field):
     Database()
     global cursor
@@ -404,6 +404,7 @@ def add_Field_Admin(field):
     cursor.execute(
         "INSERT INTO `Fields` (name,f) VALUES(?,?)", (field, "ok"))
     conn.commit()
+
 
 if __name__ == '__main__':
     app.run(debug=True)

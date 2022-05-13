@@ -10,23 +10,7 @@ pipeline {
         }
       }
     }
-  
-    stage('Test') {
-      steps {
-        sh 'python3 test.py'
-        input(id: "Deploy Gate", message: "Deploy ${params.PM2022_TEAM_29}?", ok: 'Deploy')
-      }
-    }
-  
-    stage('Deploy')
-    {
-      steps {
-        echo "deploying the application"
-        sh "sudo nohup python3 app.py"
-      }
-    }
   }
-  
   post {
         always {
             echo 'The pipeline completed'
@@ -39,5 +23,5 @@ pipeline {
             echo 'Build stage failed'
             error('Stopping early…')
         }
-      }
+     }
 }

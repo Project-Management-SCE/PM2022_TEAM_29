@@ -26,13 +26,17 @@ def Database():
     cursor.execute(
         "CREATE TABLE IF NOT EXISTS `Search` (org TEXT PRIMARY KEY NOT NULL, meen TEXT, geel TEXT, mekom TEXT, hoby TEXT) ")
 
+import urllib.request
 
 Database()
 app.config['SECRET_KEY'] = 'Sujood'
+
 import json
 import os
 import tempfile
 from werkzeug.utils import secure_filename
+app.config["ALLOWED_IMAGE_EXTENSIONS"] = ["JPEG", "JPG", "PNG", "GIF"]
+app.config["MAX_IMAGE_FILESIZE"] = 0.5 * 1024 * 1024
 
 app = Flask(__name__)
 
@@ -50,6 +54,7 @@ def register():
     form = signupForm()
     if request.method == 'POST':
         username = form.username.data
+        session["uservol"] = form.username.data
         password = form.password.data
         name = form.name.data
         age = form.age.data
@@ -65,7 +70,6 @@ def register():
             insert_volunteer(str(username), str(password), str(name), str(age), str(location), str(phone), str(hobby))
             cursor.close()
             conn.close()
-    flash("successfully created!")
     return render_template('register.html', form=form)
 
 # Add new volunteer 
@@ -106,7 +110,6 @@ def registerOrg():
             insert_organization(str(username), str(password), str(name), str(age), str(location), str(phone), str(maxvol), str(hobby))
             cursor.close()
             conn.close()
-    flash("successfully created!")
     return render_template('registerOrg.html', form=form)
 #this to insert an organization
 def insert_organization(username, password, age, location, phone, name, maxvol, hobby):
@@ -292,7 +295,6 @@ def updateDonation():
         donation = form.donation.data
         cursor.execute("UPDATE 'admin' SET donation=? WHERE username=?", (donation, session["useradm"],))
         conn.commit()
-    flash("successfully updated!")
     return render_template('updateDonation.html', form=form, )
 
 @app.route('/divideDonation', methods=['GET', 'POST']) #donation value
@@ -316,7 +318,6 @@ def divideDonation():
         s = str(aa)
         cursor.execute("UPDATE 'admin' SET donation=? WHERE username=?", (aa, session["useradm"],))
         conn.commit()
-    flash("successfully updated!")
     return render_template('divideDonation.html', form=form, guest=users)
 
 @app.route('/updateRating', methods=['POST','GET'])
@@ -328,7 +329,6 @@ def updateRating():
         username = form.username.data
         cursor.execute("UPDATE 'organization' SET rating=? WHERE username=?", (rating, username,))
         conn.commit()
-    flash("successfully updated!")
     return render_template('updateRating.html', form=form, )
 
 # @app.route('/addField', methods=['GET', 'POST'])
@@ -339,7 +339,6 @@ def updateRating():
 #         field = form.field.data
 #         cursor.execute("UPDATE 'organization' SET hobby=? WHERE username=?", (field, "ssss",))
 #         conn.commit()
-#     flash("successfully added!")
 #     return render_template('addField.html', form=form, )
 
 def delete(usename):
@@ -395,7 +394,6 @@ def addFieldAdmin():
         cursor.execute(
             "INSERT INTO `Fields` (name,f) VALUES(?,?)", (field,"ok"))
         conn.commit()
-    flash("successfully added!")
     return render_template('addField.html', form=form, )
 
 def add_Field_Admin(field):

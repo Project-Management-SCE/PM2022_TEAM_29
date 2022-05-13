@@ -183,7 +183,7 @@ class MyTestCase(unittest.TestCase):
     def test_SearchSomeone(self):
         App.Database()
         try:
-            username = "ahmad"
+            username = "sujood"
             meen = "male"
             geel = 17
             mekoom = "Ber Sheva"

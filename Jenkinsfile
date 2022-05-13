@@ -1,4 +1,4 @@
-        [11:58 pm, 13/05/2022] ɴᴏᴏʀ ɴᴀɪꜰ.: pipeline {
+ pipeline {
   agent any
   stages {
     stage('Build') {

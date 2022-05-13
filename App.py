@@ -382,7 +382,7 @@ def add_field(field):
 def update_rating(rating,username):
     Database()
     global cursor
-    cursor.execute("UPDATE 'Fields' SET name=? WHERE username=?", (rating, username,))
+    cursor.execute("UPDATE 'organization' SET name=? WHERE username=?", (rating, username,))
     conn.commit()
 
 
@@ -398,6 +398,12 @@ def addFieldAdmin():
     flash("successfully added!")
     return render_template('addField.html', form=form, )
 
+def add_Field_Admin(field):
+    Database()
+    global cursor
+    cursor.execute(
+        "INSERT INTO `Fields` (name,f) VALUES(?,?)", (field, "ok"))
+    conn.commit()
 
 if __name__ == '__main__':
     app.run(debug=True)

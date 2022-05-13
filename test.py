@@ -166,11 +166,19 @@ class MyTestCase(unittest.TestCase):
             username = "ssss"
             rating = "3"
             global cursor
-            App.update_rating(rating,username)
+            App.update_rating(rating, username)
             self.assertTrue(True)
         except:
             self.assertTrue(False)
 
+    def test_addFieldAdmin(self):
+        App.Database()
+        try:
+            field = "healing"
+            App.add_Field_Admin(field)
+            self.assertTrue(True)
+        except:
+            self.assertTrue(False)
 
 if __name__ == '__main__':
     unittest.main()

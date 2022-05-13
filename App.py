@@ -5,6 +5,8 @@ from datetime import datetime
 from werkzeug.utils import secure_filename
 from PIL import Image
 import PIL
+from werkzeug.utils import secure_filename
+import os
 
 app = Flask(__name__)
 
@@ -96,6 +98,8 @@ def volunteerPage():
 def registerOrg():
     Database()
     form = signupFormOrg()
+    guest = cursor.execute("SELECT * FROM `Fields`")
+    form.hobby.choices = [(x[0]) for x in guest]
     if request.method == 'POST':
         username = form.username.data
         password = form.password.data

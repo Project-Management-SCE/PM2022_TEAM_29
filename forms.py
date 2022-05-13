@@ -6,6 +6,7 @@ from flask_wtf import FlaskForm
 from wtforms import validators
 from wtforms.validators import DataRequired,Length,EqualTo, Email
 from flask_wtf import FlaskForm
+from wtforms import SelectField
 
 
 class signupForm(FlaskForm):
@@ -36,7 +37,7 @@ class signupFormOrg(FlaskForm):
     phone = StringField(label='phone', validators=[DataRequired(), Length(min=3, max=20)])
     name = StringField(label='name of the organization', validators=[DataRequired(), Length(min=3, max=50)])
     maxvol = StringField(label='maximum number of volunteers', validators=[DataRequired(), Length(min=1, max=50)])
-    hobby = StringField(label='the organization volunteering field', validators=[DataRequired(), Length(min=3, max=50)])
+    hobby = SelectField('the organization volunteering field', choices=[])
     submit = SubmitField(label='Sign up')
 
 class DeleteVolunteerForm(FlaskForm):

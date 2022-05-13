@@ -69,3 +69,10 @@ class UpdateRatingForm(FlaskForm):
 class AddFieldForm(FlaskForm):
     field = StringField("field", validators=[DataRequired()])
     submit = SubmitField('add field')
+
+class SearchForVolunteerForm(FlaskForm):
+    meen = StringField("gender:")
+    geel = StringField("age:")
+    mekom = StringField("location:")
+    hoby = StringField("work filed:")
+    submit = SubmitField('check')

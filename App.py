@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, flash, session, redirect, url_for, abort
 import sqlite3
-from forms import signupForm, SignOutForm, LoginForm, signupFormOrg, DeleteVolunteerForm, DeleteOrganizationForm, DeleteFieldForm, UpdateDonationForm, DivideDonationForm, UpdateRatingForm, AddFieldForm
+from forms import signupForm, SignOutForm, LoginForm, signupFormOrg, DeleteVolunteerForm, DeleteOrganizationForm, DeleteFieldForm, UpdateDonationForm, DivideDonationForm, UpdateRatingForm, AddFieldForm, SearchForVolunteerForm
 from datetime import datetime
 from werkzeug.utils import secure_filename
 from PIL import Image
@@ -515,6 +515,119 @@ def allowed_image_filesize(filesize):
         return True
     else:
         return False
+
+@app.route('/SearchForVolunteer', methods=['GET', 'POST'])
+def SearchForVolunteer():
+    form = SearchForVolunteerForm()
+    Database()
+    cursor.execute("DELETE FROM 'Search' WHERE org=?", (session["userorg"],))
+    conn.commit()
+    if request.method == 'POST':
+        meen = form.meen.data
+        geel = form.geel.data
+        mekom = form.mekom.data
+        hoby = form.hoby.data
+        cursor.execute(
+        "INSERT INTO `Search` (org, meen, geel, mekom, hoby) VALUES(?,?, ?, ?,?)",
+        (session["userorg"], meen, geel, mekom, hoby))
+        conn.commit()
+
+    return render_template('SearchForVolunteer.html', form=form)
+
+@app.route('/Show', methods=['GET', 'POST'])
+def Show():
+    Database()
+    x = cursor.execute("SELECT * FROM `Search` WHERE `org` = ?", (session["userorg"],))
+    # for y in x:
+    y=cursor.fetchall()[0]
+    mn = y[1]
+    g = y[2]
+    mm = y[3]
+    h = y[4]
+    if(mn==None):
+        mn=''
+    if (g == None):
+        g = ''
+    if (mm == None):
+        mm = ''
+    if (h == None):
+        h = ''
+    if((mn !='' )& (g !='') & (mm !='') & (h !='')):
+        guests = cursor.execute("SELECT * FROM `volunteer` WHERE `meen` = ? AND `age` = ? AND `location` = ? AND `hobby` = ?", (mn,int(g),mm,h,))
+    if ((mn !='')& (g !='') & (mm !='' )):
+        guests = cursor.execute(
+            "SELECT * FROM `volunteer` WHERE `meen` = ? AND `age` = ? AND `location` = ?",
+            (mn, int(g), mm,))
+    if ((mn !='') & (g !='') & (h !='')):
+        guests = cursor.execute(
+            "SELECT * FROM `volunteer` WHERE `meen` = ? AND `age` = ? AND `hobby` = ?",
+            (mn, int(g), h,))
+    if ((mn !='') & (mm !='') & (h !='')):
+        guests = cursor.execute(
+            "SELECT * FROM `volunteer` WHERE `meen` = ? AND `location` = ? AND `hobby` = ?",
+            (mn, mm, h,))
+
+    if ( (g!='') & (mm!='' )& (h!='')):
+        guests = cursor.execute(
+            "SELECT * FROM `volunteer` WHERE `age` = ? AND `location` = ? AND `hobby` = ?",
+            ( int(g), mm, h,))
+    if ((mn!='') & (g!='') ):
+        guests = cursor.execute(
+            "SELECT * FROM `volunteer` WHERE `meen` = ? AND `age` = ? ",
+            (mn, int(g),))
+    if ((mn!='') & (mm!='') ):
+        guests = cursor.execute(
+            "SELECT * FROM `volunteer` WHERE `meen` = ?  AND `location` = ?",
+            (mn, mm,))
+    if ( (g!='') & (mm!='') ):
+        guests = cursor.execute(
+            "SELECT * FROM `volunteer` WHERE  `age` = ? AND `location` = ?",
+            ( int(g), mm,))
+    if ((mn!='') & (g!='') ):
+        guests = cursor.execute(
+            "SELECT * FROM `volunteer` WHERE `meen` = ? AND `age` = ? ",
+            (mn, int(g),))
+    if ((mn!='') &(h!='')):
+        guests = cursor.execute(
+            "SELECT * FROM `volunteer` WHERE `meen` = ? AND `hobby` = ?",
+            (mn, h,))
+    if ( (g!='' )& (h!='')):
+        guests = cursor.execute(
+            "SELECT * FROM `volunteer` WHERE  `age` = ? AND `hobby` = ?",
+            ( int(g), h,))
+    if ((mn!='') &( mm!='')):
+        guests = cursor.execute(
+            "SELECT * FROM `volunteer` WHERE `meen` = ? AND `location` = ? ",
+            (mn, mm,))
+    if ((mn!='') &( h!='')):
+        guests = cursor.execute(
+            "SELECT * FROM `volunteer` WHERE `meen` = ? AND `hobby` = ?",
+            (mn, h,))
+    if ( (mm !='')& (h!='')):
+        guests = cursor.execute(
+            "SELECT * FROM `volunteer` WHERE `location` = ? AND `hobby` = ?",
+            ( mm, h,))
+    if ( (g !='')&( mm!='')):
+        guests = cursor.execute(
+            "SELECT * FROM `volunteer` WHERE `age` = ? AND `location` = ? ",
+            ( int(g), mm,))
+    if (( g!='') & (h!='')):
+        guests = cursor.execute(
+            "SELECT * FROM `volunteer` WHERE `age` = ? AND `hobby` = ?",
+            ( int(g), h,))
+    if ( (mm!='') & (h!='')):
+        guests = cursor.execute(
+            "SELECT * FROM `volunteer` WHERE `location` = ? AND `hobby` = ?",
+            (mm, h,))
+    if (g!=''):
+        guests = cursor.execute("SELECT * FROM `volunteer` WHERE `age` = ?", (int(g),))
+    if (mm!=''):
+        guests = cursor.execute("SELECT * FROM `volunteer` WHERE `location` = ?", (mm,))
+    if (h!=''):
+        guests = cursor.execute("SELECT * FROM `volunteer` WHERE `hobby` = ?", (h,))
+
+    return render_template('Show.html', guests=guests)
+
 
 if __name__ == '__main__':
     app.run(debug=True)

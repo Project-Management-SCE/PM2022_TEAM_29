@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <head>
+        <title>CSS Website Layout</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+
+body, html {
+  height: 100%;
+  margin: 0;
+}
+
+body {margin:0;}
+
+.navbar {
+  overflow: hidden;
+  background-color: rgb(7, 124, 139);
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.navbar a {
+  float: left;
+  display: block;
+  color: #e7eaeb;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.navbar a:hover {
+  background: #ddd;
+  color: black;
+}
+
+
+body{
+    background-color:lightblue
+}
+table {
+  border: 1px solid black;
+}
+
+table {
+  border: 1px solid black;
+  font: 16px "Open Sans", Helvetica, Arial, sans-serif;
+}
+
+thead > tr {
+  background-color: rgb(228, 240, 245);
+}
+
+th, td {
+  border: 1px solid black;
+  padding:4px 6px;
+}
+
+        </style>
+    </head>
+<body>
+
+<!--{% if guests==NUll %}-->
+<!--No data found-->
+<!--{% endif %}-->
+<tr>
+        <th scope="col">the volunteer name</th>
+
+        <th scope="col">    location</th>
+        <th scope="col">    gender</th>
+        <th scope="col">    age</th>
+        <th scope="col">    hobby</th>
+    </tr>
+            <tr>
+<table>
+
+    {% for guest in guests %}
+
+        <article class="media content-section">
+          <div class="media-body">
+            <div class="article-metadata">
+            </div>
+               <th scope="row">{{ guest[5] }}</th>
+              <td>{{ guest[3] }}</td>
+              <td>{{ guest[8] }}</td>
+              <td>{{ guest[2] }}</td>
+              <td>{{ guest[7] }}</td>
+
+          </div>
+        </article>
+            </tr>
+    {% endfor %}
+</table>
+
+
+
+
+
+
+</div>
+
+
+</body>
+</html>

@@ -10,7 +10,7 @@ pipeline {
         }
       }
     }
-  
+  }
   post {
         always {
             echo 'The pipeline completed'

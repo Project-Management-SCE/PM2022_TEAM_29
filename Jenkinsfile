@@ -7,12 +7,6 @@ pipeline {
                   image 'python:3-alpine'
               }
           }
-            steps {
-               sh 'python -m py_compile app.py'
-               stash(name: 'compiled-results', includes: 'app.py*')
-                              stash(name: 'setUpPy', includes: 'setup.py*')
-               stash(name: 'pypirc', includes: '.pypirc')
-          }
        }
        stage('Unit Test') {
          agent {

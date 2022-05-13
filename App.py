@@ -404,11 +404,6 @@ def add_Field_Admin(field):
     cursor.execute(
         "INSERT INTO `Fields` (name,f) VALUES(?,?)", (field, "ok"))
     conn.commit()
-def add_field(field):
-    Database()
-    global cursor
-    cursor.execute("UPDATE 'organization' SET hobby=? WHERE username=?", (field, "ssss",))
-    conn.commit()
 
 if __name__ == '__main__':
     app.run(debug=True)

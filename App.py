@@ -537,6 +537,7 @@ def SearchForVolunteer():
 @app.route('/Show', methods=['GET', 'POST'])
 def Show():
     Database()
+    guests=()
     x = cursor.execute("SELECT * FROM `Search` WHERE `org` = ?", (session["userorg"],))
     # for y in x:
     y=cursor.fetchall()[0]

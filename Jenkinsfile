@@ -12,14 +12,6 @@ pipeline{
                     image 'python:3.6-alpine' 
                 }
             }
-            steps{
-                sh "python -m compileall ."
-            }
-            
-        }
-        stage("Test"){
-         
-    
         }
         stage("Build Docker Image"){
             steps{

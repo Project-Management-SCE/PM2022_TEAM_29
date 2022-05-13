@@ -9,16 +9,15 @@ pipeline {
           }
         }
       }
-             stage('test') {
-            steps {
+    }
+     stage('test') {
+         steps {
                 sh 'python test.py'
             }
             post {
                 always {junit 'test-reports/*.xml'}
             }
-        }
-    }
-  
+     }
   }
   
   post {
@@ -33,5 +32,4 @@ pipeline {
             echo 'Build stage failed'
             error('Stopping early…')
         }
-      }
 }

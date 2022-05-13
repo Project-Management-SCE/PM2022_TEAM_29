@@ -2,6 +2,9 @@ from flask import Flask, render_template, request, flash, session, redirect, url
 import sqlite3
 from forms import signupForm, SignOutForm, LoginForm, signupFormOrg, DeleteVolunteerForm, DeleteOrganizationForm, DeleteFieldForm, UpdateDonationForm, DivideDonationForm, UpdateRatingForm, AddFieldForm
 from datetime import datetime
+from werkzeug.utils import secure_filename
+from PIL import Image
+import PIL
 
 app = Flask(__name__)
 
@@ -403,6 +406,111 @@ def add_Field_Admin(field):
         "INSERT INTO `Fields` (name,f) VALUES(?,?)", (field, "ok"))
     conn.commit()
 
+@app.route("/upload",methods=['GET','POST'])
+def upload():
+
+    Database()
+    global cursor
+    file_path = 'images/'
+    file_name = "sys"
+    full_path = file_path + file_name + '.jpg'
+    url = "https://abroadship.org/wp-content/uploads/2018/11/volunteer-wordall.png"
+    urllib.request.urlretrieve(url, full_path)
+    cursor.execute("UPDATE 'volunteer' SET pic=? WHERE username=?", (url, session["uservol"],))
+    conn.commit()
+
+    if request.method == "POST":
+
+        if request.files:
+
+            if "filesize" in request.cookies:
+
+                if not allowed_image_filesize(request.cookies["filesize"]):
+                    print("Filesize exceeded maximum limit")
+                    return redirect(request.url)
+
+                image = request.files["image"]
+
+                if image.filename == "":
+                    print("No filename")
+                    return redirect(request.url)
+
+                if allowed_image(image.filename):
+                    filename = secure_filename(image.filename)
+
+
+                    print("Image saved")
+
+                    return redirect(request.url)
+
+                else:
+                    print("That file extension is not allowed")
+                    return redirect(request.url)
+
+    return render_template("upload.html")
+
+@app.route("/uploadFile",methods=['GET','POST'])
+def uploadFile():
+
+    Database()
+    global cursor
+    file_path = 'images/'
+    file_name = "sys"
+    full_path = file_path + file_name + '.jpg'
+    url = "https://abroadship.org/wp-content/uploads/2018/11/volunteer-wordall.png"
+    urllib.request.urlretrieve(url, full_path)
+    cursor.execute("UPDATE 'volunteer' SET perm=? WHERE username=?", (url, session["uservol"],))
+    conn.commit()
+
+    if request.method == "POST":
+
+        if request.files:
+
+            if "filesize" in request.cookies:
+
+                if not allowed_image_filesize(request.cookies["filesize"]):
+                    print("Filesize exceeded maximum limit")
+                    return redirect(request.url)
+
+                image = request.files["image1"]
+
+                if image.filename == "":
+                    print("No filename")
+                    return redirect(request.url)
+
+                if allowed_image(image.filename):
+                    filename = secure_filename(image.filename)
+
+
+                    print("Image saved")
+
+                    return redirect(request.url)
+
+                else:
+                    print("That file extension is not allowed")
+                    return redirect(request.url)
+
+    return render_template("upload.html")
+
+def allowed_image(filename):
+
+    if not "." in filename:
+        return False
+
+    ext = filename.rsplit(".", 1)[1]
+
+    if ext.upper() in app.config["ALLOWED_IMAGE_EXTENSIONS"]:
+        return True
+    else:
+        return False
+
+
+def allowed_image_filesize(filesize):
+
+    if int(filesize) <= app.config["MAX_IMAGE_FILESIZE"]:
+        return True
+    else:
+        return False
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -1,0 +1,53 @@
+
+
+{% block title %}Upload files{% endblock %}
+
+{% block main %}
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+
+
+            <hr>
+
+            <form action="/upload" method="POST" enctype="multipart/form-data">
+
+                <div class="form-group">
+                    <label>upload your image</label>
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" name="image" id="image">
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Upload</button>
+
+            </form>
+            <dv>
+                <form action="/uploadFile" method="POST" enctype="multipart/form-data">
+
+                    <div class="form-group">
+                        <label>upload your permission from the police</label>
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" name="image" id="image1">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Upload</button>
+
+                </form>
+            </dv>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+
+
+
+
+
+
+

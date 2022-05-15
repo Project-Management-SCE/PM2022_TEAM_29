@@ -394,6 +394,7 @@ def update_rating(rating,username):
 
 @app.route('/addFieldAdmin', methods=['GET', 'POST'])
 def addFieldAdmin():
+    Database()
     form = AddFieldForm()
 
     if request.method == 'POST':

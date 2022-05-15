@@ -628,6 +628,8 @@ def Show():
         guests = cursor.execute("SELECT * FROM `volunteer` WHERE `hobby` = ?", (h,))
 
     return render_template('Show.html', guests=guests)
+#BSPM2022T29-96 
+
 
 def Search_Somone(username,mn, g, mm, h):
     Database()
@@ -636,6 +638,9 @@ def Search_Somone(username,mn, g, mm, h):
         "INSERT INTO `Search` (org, meen, geel, mekom, hoby) VALUES(?,?, ?, ?,?)",
         (username, mn, g, mm, h))
     conn.commit()
+
+
+
     
 if __name__ == '__main__':
     app.run(debug=True)

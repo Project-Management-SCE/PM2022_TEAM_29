@@ -629,12 +629,6 @@ def Show():
 
     return render_template('Show.html', guests=guests)
 
-def update_rating(rating,username):
-    Database()
-    global cursor
-    cursor.execute("UPDATE 'organization' SET name=? WHERE username=?", (rating, username,))
-    conn.commit()
-
 
 def Search_Somone(username,mn, g, mm, h):
     Database()

@@ -296,6 +296,7 @@ def deleteField():
 
 @app.route('/updateDonation', methods=['GET', 'POST'])
 def updateDonation():
+    Database()
     form = UpdateDonationForm()
 
     if request.method == 'POST':
@@ -306,6 +307,8 @@ def updateDonation():
 
 @app.route('/divideDonation', methods=['GET', 'POST']) #donation value
 def divideDonation():
+    x = ''
+    Database()
     session["useradm"] = "admin"
     guest = cursor.execute("SELECT donation FROM `admin` WHERE `username` = ?", (session["useradm"],))
     str1 = ''

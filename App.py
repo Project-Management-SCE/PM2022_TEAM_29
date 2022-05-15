@@ -638,17 +638,6 @@ def Search_Somone(username,mn, g, mm, h):
         (username, mn, g, mm, h))
     conn.commit()
 
-def Limiting_number_volunteers():
-    Database()
-    form = UpdateRatingForm()
-    if request.method == 'POST':
-        rating = form.rating.data
-        username = form.username.data
-        cursor.execute("UPDATE 'organization' SET rating=? WHERE username=?", (rating, username,))
-        conn.commit()
-    return render_template('updateRating.html', form=form, )
-
-
     
 if __name__ == '__main__':
     app.run(debug=True)

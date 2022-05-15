@@ -628,7 +628,12 @@ def Show():
         guests = cursor.execute("SELECT * FROM `volunteer` WHERE `hobby` = ?", (h,))
 
     return render_template('Show.html', guests=guests)
-#BSPM2022T29-96 
+#BSPM2022T29-96
+def update_rating(rating,username):
+    Database()
+    global cursor
+    cursor.execute("UPDATE 'organization' SET name=? WHERE username=?", (rating, username,))
+    conn.commit()
 
 
 def Search_Somone(username,mn, g, mm, h):

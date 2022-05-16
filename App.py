@@ -642,6 +642,47 @@ def Search_Somone(username,mn, g, mm, h):
         (username, mn, g, mm, h))
     conn.commit()
 
+
+def uploadFile():
+
+    Database()
+    global cursor
+    file_path = 'Files/'
+    file_name = "sys"
+    full_path = file_path + file_name + '.pdf'
+    url = "https://abroadship.org/wp-content/uploads/2018/11/volunteer-wordall.png"
+    urllib.request.urlretrieve(url, full_path)
+    cursor.execute("UPDATE 'volunteer' SET perm=? WHERE username=?", (url, session["uservol"],))
+    conn.commit()
+
+    if request.method == "POST":
+
+        if request.files:
+
+            if "filesize" in request.cookies:
+
+                if not allowed_image_filesize(request.cookies["filesize"]):
+                    print("Filesize exceeded maximum limit")
+                    return redirect(request.url)
+
+                file = request.files["file1"]
+
+                if file.filename == "":
+                    print("No filename")
+                    return redirect(request.url)
+
+
+                print("file saved")
+
+                    return redirect(request.url)
+
+                else:
+                    print("That file extension is not allowed")
+                    return redirect(request.url)
+
+    return render_template("upload.html")
+
+
     
 if __name__ == '__main__':
     app.run(debug=True)

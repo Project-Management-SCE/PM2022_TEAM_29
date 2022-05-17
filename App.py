@@ -643,6 +643,15 @@ def Search_Somone(username,mn, g, mm, h):
     conn.commit()
 
 
+
     
+
+@app.route('/listHourOrg', methods=['GET'])
+def listHourOrg():
+    Database()
+    guests = cursor.execute("SELECT * FROM `hours` WHERE `orgname` = ?", (session["userorg"],))
+    return render_template('listHourOrg.html', guests=guests)
+
+
 if __name__ == '__main__':
     app.run(debug=True)

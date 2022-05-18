@@ -49,4 +49,3 @@ pipeline {
             echo 'Hey look at this, Pipeline state is changed.'
         }
     }
-}

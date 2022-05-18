@@ -8,9 +8,6 @@ pipeline {
             sh 'echo "building the repo"'
           }
               }
-            stage('test'){
-              sh 'echo "testing the repo"'
-    }
             }
     }
   }

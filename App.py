@@ -687,6 +687,36 @@ def listHour():
     guests = cursor.execute("SELECT * FROM `hours` WHERE `volname` = ?", (session["uservol"],))
     return render_template('listHour.html', guests=guests)
 
+@app.route('/approvalHours', methods=["GET","POST"])
+def approvalHours():
+    Database()
+    global cursor
+    guests = cursor.execute("SELECT * FROM `report` WHERE orgg = ? AND status=?", (session["userorg"], "yet",))
+    if request.method == 'POST':
+
+        post_id = request.form.get('ok')
+
+
+        if post_id is not None:
+            post_id = str(request.form.get('ok'))
+            post_id = post_id.split(',')
+            print(post_id[1])
+
+            cursor.execute("UPDATE 'report' SET status=? WHERE voll=? AND orgg=? AND datte=?", ("ok", post_id[0], session["userorg"], post_id[1],))
+            conn.commit()
+            return redirect(url_for('approvalHours'))
+        post_id1 = request.form.get('no')
+        if post_id1 is not None:
+            post_id1 = str(request.form.get('no'))
+            post_id1 = post_id1.split(',')
+            cursor.execute("UPDATE 'report' SET status=? WHERE voll=? AND orgg=? AND datte=?",
+                           ("no", post_id1[0], session["userorg"], post_id1[1],))
+            conn.commit()
+            return redirect(url_for('approvalHours'))
+
+    return render_template('approvalHours.html', guests=guests)
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)

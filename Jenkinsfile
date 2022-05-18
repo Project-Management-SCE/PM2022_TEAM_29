@@ -3,52 +3,23 @@ pipeline {
   stages {
     stage('Clean Reports')
     {
-      steps{
-        echo '*** Cleaning Workspace Stage Started ****'
-        echo '*** Cleaning Workspace Stage Finished ****'
-      }
+        echo '*** Cleaning Workspace Stage ****'
     }
     
     stage('Build Stage') {
-      steps {
-        echo '*** Build Stage Started ****'
-        bat 'pyinstaller --onefile app.py'
-        echo '*** Build Stage Finished ****'
-        }
+        echo '*** Build Stage  ****'
     }
     stage('Testing Stage') {
-      steps {
-        echo '*** Test Stage Started ****'
-        echo '*** Test Stage Finished ****'
-      }   
+        echo '*** Test Stage ****' 
     }
     stage('Configure '){
-      steps{
-        script {
-          
           echo '*** Configure  Started ****'
-             def userInput = input(
-             id: 'userInput', message: 'Enter password'
-          echo '*** Configure Finished ****'
-        }
-       }
     }
-    stage('Sanity check') {
-            steps {
-                input "Does the staging environment look ok?"
-            }
-     }
+
 stage('Deployment Stage'){
-            steps{
-                input "Do you want to Deploy the application?"
-                echo '*** Deploy Stage Started ****'
-                timeout(time : 1, unit : 'MINUTES')
-                {
-                bat 'python app.py'
-                }
-                echo '*** Deploy Stage Finished ****'
-            }
-    }
+
+                echo '*** Deploy Stage Finished ***'
+         }
   }
   post {
         always {

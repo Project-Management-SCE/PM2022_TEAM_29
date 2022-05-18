@@ -5,7 +5,6 @@ pipeline {
     {
         echo '*** Cleaning Workspace Stage ****'
     }
-    
     stage('Build Stage') {
         echo '*** Build Stage  ****'
     }
@@ -15,12 +14,11 @@ pipeline {
     stage('Configure '){
           echo '*** Configure  Started ****'
     }
-
-stage('Deployment Stage'){
-
-                echo '*** Deploy Stage Finished ***'
-         }
+    stage('Deployment Stage'){
+           echo '*** Deploy Stage Finished ***'
+    }
   }
+}
   post {
         always {
             echo 'We came to an end!'

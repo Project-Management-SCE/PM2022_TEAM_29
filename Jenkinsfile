@@ -10,7 +10,9 @@ pipeline {
               }
             }
     }
-
+    stage('test'){
+    sh 'echo "testing the repo"'
+    }
   }
   post {
         always {

@@ -1,16 +1,28 @@
 pipeline {
-    agent any
-    stages {
+  agent any
+  stages {
+    stage('Build') {
+      parallel {
         stage('Build') {
-            steps {
-              checkout([$class: 'GitSCM', 
-                branches: [[name: '*/main']],
-                doGenerateSubmoduleConfigurations: false,
-                extensions: [[$class: 'CleanCheckout']],
-                submoduleCfg: [], 
-                userRemoteConfigs: [[url: 'https://github.com/Project-Management-SCE/PM2022_TEAM_29.git']]])
-              sh "ls -ltr"
+          steps {
+            sh 'echo "building the repo"'
           }
-        }
+              }
+            }
     }
+
+  }
+  post {
+        always {
+            echo 'The pipeline completed'
+            junit allowEmptyResults: true, testResults:'*/test_reports/.xml'
+        }
+              success {                   
+            echo "Flask Application Up and running!!"
+        }
+              failure {
+            echo 'Build stage failed'
+            error('Stopping early…')
+        }
+  }
 }

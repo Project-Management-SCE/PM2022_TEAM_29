@@ -12,7 +12,6 @@ pipeline {
     stage('Build Stage') {
       steps {
         echo '*** Build Stage Started ****'
-        bat 'pip install -r requirements.txt'
         bat 'pyinstaller --onefile app.py'
         echo '*** Build Stage Finished ****'
         }
@@ -20,7 +19,6 @@ pipeline {
     stage('Testing Stage') {
       steps {
         echo '*** Test Stage Started ****'
-        bat 'python test.py'
         echo '*** Test Stage Finished ****'
       }   
     }
@@ -30,10 +28,7 @@ pipeline {
           
           echo '*** Configure  Started ****'
              def userInput = input(
-             id: 'userInput', message: 'Enter password', parameters: [
-             
-             [$class: 'TextParameterDefinition', defaultValue: 'password', description: 'Artifactory Password', name: 'password']])
-             
+             id: 'userInput', message: 'Enter password'
           echo '*** Configure Finished ****'
         }
        }
@@ -76,7 +71,7 @@ stage('Deployment Stage'){
           echo 'Build Successfull!!'
     }
         failure {
-        echo 'Sorry mate! build is Failed :('
+        echo ' build is Failed :('
     }
         unstable {
             echo 'Run was marked as unstable'

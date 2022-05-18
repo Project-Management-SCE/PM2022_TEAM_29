@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, flash, session, redirect, url_for, abort
 import sqlite3
-from forms import signupForm, SignOutForm, LoginForm, signupFormOrg, DeleteVolunteerForm, DeleteOrganizationForm, DeleteFieldForm, UpdateDonationForm, DivideDonationForm, UpdateRatingForm, AddFieldForm, SearchForVolunteerForm
+from forms import signupForm, SignOutForm, LoginForm, signupFormOrg, DeleteVolunteerForm, DeleteOrganizationForm, DeleteFieldForm, UpdateDonationForm, DivideDonationForm, UpdateRatingForm, AddFieldForm, SearchForVolunteerForm, ReportHoursForm
 from datetime import datetime
 from werkzeug.utils import secure_filename
 from PIL import Image
@@ -642,15 +642,44 @@ def Search_Somone(username,mn, g, mm, h):
         (username, mn, g, mm, h))
     conn.commit()
 
-
-
-    
-
 @app.route('/listHourOrg', methods=['GET'])
 def listHourOrg():
     Database()
     guests = cursor.execute("SELECT * FROM `hours` WHERE `orgname` = ?", (session["userorg"],))
     return render_template('listHourOrg.html', guests=guests)
+
+@app.route('/reportHours', methods=['POST','GET'])
+def reportHours():
+    Database()
+    form = ReportHoursForm()
+    if request.method == 'POST':
+        organ = form.organ.data
+        hhour = form.hhour.data
+        sstatus = "yet"
+        ddaate = form.ddaate.data
+        cursor.execute(
+            "INSERT INTO `report` (orgg, voll, hour, status, datte) VALUES(?, ?, ?,?,?)",
+            (organ, session["uservol"], hhour, sstatus, ddaate))
+        conn.commit()
+        cursor.execute("SELECT * FROM `hours` WHERE `volname` = ?", (session["uservol"],))
+
+        if cursor.fetchone() is not None:
+            y = fun()
+            m = y[2] + int(hhour)
+            cursor.execute("UPDATE 'hours' SET hour=? WHERE volname=?", (m, session["uservol"],))
+            conn.commit()
+        else:
+            cursor.execute(
+                "INSERT INTO `hours` (orgname, volname, hour) VALUES(?, ?, ?)",
+                (organ, session["uservol"], hhour, ))
+            conn.commit()
+    flash("successfully added!")
+    return render_template('reportHours.html', form=form, )
+
+def fun():
+    cursor.execute("SELECT * FROM `hours` WHERE `volname` = ?", (session["uservol"],))
+    y = cursor.fetchall()[0]
+    return y
 
 
 if __name__ == '__main__':

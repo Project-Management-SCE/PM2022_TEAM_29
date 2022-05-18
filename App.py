@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, flash, session, redirect, url_for, abort
 import sqlite3
 from forms import signupForm, SignOutForm, LoginForm, signupFormOrg, DeleteVolunteerForm, DeleteOrganizationForm, DeleteFieldForm, UpdateDonationForm, DivideDonationForm, UpdateRatingForm, AddFieldForm, SearchForVolunteerForm, ReportHoursForm
-from forms import UpdateMaxVolForm
+from forms import UpdateMaxVolForm, UpdateMaxHourForm
 from datetime import datetime
 from werkzeug.utils import secure_filename
 from PIL import Image
@@ -728,6 +728,18 @@ def updateMaxVol():
         conn.commit()
     flash("successfully updated!")
     return render_template('updateMaxVol.html', form=form, )
+
+@app.route('/updateMaxHour', methods=['POST','GET'])
+def updateMaxHour():
+    Database()
+    form = UpdateMaxHourForm()
+    if request.method == 'POST':
+        Maxhour = form.Maxhour.data
+        username = form.username.data
+        cursor.execute("UPDATE 'hours' SET limitt=? WHERE volname=? and orgname=?", (Maxhour, username, session["userorg"],))
+        conn.commit()
+    flash("successfully updated!")
+    return render_template('updateMaxHour.html', form=form, )
 
 if __name__ == '__main__':
     app.run(debug=True)

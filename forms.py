@@ -90,3 +90,9 @@ class ReportHoursForm(FlaskForm):
 class UpdateMaxVolForm(FlaskForm):
     maxvol = StringField("New Max number", validators=[DataRequired()])
     submit = SubmitField('update number')
+
+class UpdateMaxHourForm(FlaskForm):
+    username = StringField("volunteer name", validators=[DataRequired()])
+    Maxhour = StringField("new hours number", validators=[DataRequired()])
+    submit = SubmitField('update Max Hour')
+

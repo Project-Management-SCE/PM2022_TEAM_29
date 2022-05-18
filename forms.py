@@ -86,3 +86,7 @@ class ReportHoursForm(FlaskForm):
     organ = StringField("organization name:", validators=[DataRequired()])
     data = StringField("tell us more:", validators=[DataRequired()])
     submit = SubmitField('add report')
+
+class UpdateMaxVolForm(FlaskForm):
+    maxvol = StringField("New Max number", validators=[DataRequired()])
+    submit = SubmitField('update number')

@@ -1,0 +1,43 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div  class="container w-50">
+  <form method="POST" action="" >
+    {{ form.hidden_tag() }}
+    <fieldset>
+      <legend class="border-bottom mb-4">Update the maximum number of volunteers for this organization  </legend>
+
+      {{ form.maxvol.label(class="form-control-label") }}
+      {% if form.maxvol.errors %}
+
+      {{ form.maxvol(class="from-control form-control-lg is-invalid") }}
+      {% for error in form.maxvol.errors %}
+      <span> {{error}}</span>
+      {% endfor %}
+      {% else %}
+      {{ form.maxvol(class="from-control form-control-lg") }}
+      {%endif%}
+</div>
+
+
+
+
+
+
+</fieldset>
+<div class="field-group my-4">
+  {{ form.submit(class='btn btn-online-info') }}
+</div>
+
+
+</form>
+
+</div>
+
+</body>
+</html>

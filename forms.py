@@ -76,3 +76,11 @@ class SearchForVolunteerForm(FlaskForm):
     mekom = StringField("location:")
     hoby = StringField("work filed:")
     submit = SubmitField('check')
+
+class ReportHoursForm(FlaskForm):
+    ddate = DateField('calender:', format='%Y-%M-%D', validators=(validators.DataRequired(),))
+    ddaate = StringField("date:(in format D-M-Y )", validators=[DataRequired()])
+    hhour = StringField("number of hours:", validators=[DataRequired()])
+    organ = StringField("organization name:", validators=[DataRequired()])
+    data = StringField("tell us more:", validators=[DataRequired()])
+    submit = SubmitField('add report')

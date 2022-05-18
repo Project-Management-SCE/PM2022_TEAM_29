@@ -681,6 +681,12 @@ def fun():
     y = cursor.fetchall()[0]
     return y
 
+@app.route('/listHour', methods=['GET'])
+def listHour():
+    Database()
+    guests = cursor.execute("SELECT * FROM `hours` WHERE `volname` = ?", (session["uservol"],))
+    return render_template('listHour.html', guests=guests)
+
 
 if __name__ == '__main__':
     app.run(debug=True)

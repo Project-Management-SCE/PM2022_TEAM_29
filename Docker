@@ -1,7 +1,7 @@
-FROM python:3.8
-COPY . PM20222_TEAM_29
-WORKDIR PM2022_TEAM_29
+FROM python:3.6-alpine
+WORKDIR /app
+COPY . /app
+RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
-CMD ["python", "src/main.py"]
-ENTRYPOINT ["python3", "app.py"]
-EXPOSE 3000 5050
+EXPOSE 5000
+CMD ["python","app.py"]

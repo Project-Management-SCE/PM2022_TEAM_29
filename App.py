@@ -744,6 +744,14 @@ def updateMaxHour():
     return render_template('updateMaxHour.html', form=form, )
 
 
+def update_donation(donation):
+    Database()
+    global cursor
+    cursor.execute("UPDATE 'admin' SET donation=? WHERE username=?", (donation, session["useradm"],))
+    conn.commit()
+
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -650,6 +650,7 @@ def listHourOrg():
     return render_template('listHourOrg.html', guests=guests)
 
 @app.route('/reportHours', methods=['POST','GET'])
+# report Hours of volunteer 
 def reportHours():
     Database()
     form = ReportHoursForm()

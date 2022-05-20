@@ -743,5 +743,21 @@ def updateMaxHour():
     flash("successfully updated!")
     return render_template('updateMaxHour.html', form=form, )
 
+    
+def updateMaxVol():
+    Database()
+    form = UpdateMaxVolForm()
+
+    if request.method == 'POST':
+        volnum = form.maxvol.data
+        cursor.execute("UPDATE 'organization' SET maxvol=? WHERE username=?", (volnum, session["userorg"],))
+        conn.commit()
+    flash("successfully updated!")
+    return render_template('updateMaxVol.html', form=form, )
+
+
+
+
+
 if __name__ == '__main__':
     app.run(debug=True)

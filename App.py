@@ -690,6 +690,7 @@ def listHour():
     return render_template('listHour.html', guests=guests)
 
 @app.route('/approvalHours', methods=["GET","POST"])
+#Return approval Hours for volunteer 
 def approvalHours():
     Database()
     global cursor

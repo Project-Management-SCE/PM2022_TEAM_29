@@ -18,24 +18,6 @@ pipeline {
         }
       }
     }
-  stage('coverage') {
-            steps {
-                withEnv(["HOME=${env.WORKSPACE}"]) {
-                    dir("PM2022_TEAM_29"){
-                        sh "python -m coverage run App.py test"
-                        sh "python -m coverage report"
-                    }
-                }
-            }
-        }
-		    
-   stage('pylint') {
-            steps {
-		   dir("PM2022_TEAM_29"){
-                        sh "python -m pylint App.py"
-	        }
-            }
-       }
  stage('Deploy to Heroku') {
             agent {
                 docker {

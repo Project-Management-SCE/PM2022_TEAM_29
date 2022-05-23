@@ -18,17 +18,6 @@ pipeline {
         }
       }
     }
-    stage('test') {
-           agent {
-                docker {
-                    image 'qnib/pytest'
-                }
-            } 
-      steps {
-            sh 'python test2.py'
-            sh 'python -m pyflakes templates/'
-      }   
-    } 
   stage('coverage') {
             steps {
                 withEnv(["HOME=${env.WORKSPACE}"]) {

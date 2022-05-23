@@ -21,13 +21,14 @@ pipeline {
      
     stage('Cloning Git') {
       steps {
-       git 'https://github.com/Project-Management-SCE/PM2022_TEAM_29.git'
+	      sh '
+       git url: 'https://github.com/Project-Management-SCE/PM2022_TEAM_29.git', branch: 'main'
       }
     }
     stage('test') {
       steps {
         withEnv(["HOME=${env.WORKSPACE}"]){
-            sh 'python test2.py'
+            sh 'python test.py'
             sh 'python -m pyflakes templates/'
         }
       }   

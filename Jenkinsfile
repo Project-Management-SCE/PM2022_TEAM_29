@@ -19,11 +19,14 @@ pipeline {
       }
     }
     stage('test') {
+           agent {
+                docker {
+                    image 'qnib/pytest'
+                }
+            } 
       steps {
-        withEnv(["HOME=${env.WORKSPACE}"]){
             sh 'python test2.py'
             sh 'python -m pyflakes templates/'
-        }
       }   
     } 
   stage('coverage') {
@@ -39,13 +42,27 @@ pipeline {
 		    
    stage('pylint') {
             steps {
-                withEnv(["HOME=${env.WORKSPACE}"]) {
 		   dir("PM2022_TEAM_29"){
                         sh "python -m pylint App.py"
-		    }
 	        }
             }
        }
+ stage('Deploy to Heroku') {
+            agent {
+                docker {
+                    image 'cimg/base:stable'
+                    args '-u root'
+                }
+            }
+            steps {
+                sh '''
+                    curl https://cli-assets.heroku.com/install.sh | sh;
+                    heroku container:login
+                    heroku container:push web --app sce-flask-template
+                    heroku container:release web --app sce-flask-template
+                '''
+            }
+        }
   }
   post {
         always {

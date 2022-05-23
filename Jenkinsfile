@@ -46,13 +46,12 @@ pipeline {
    stage('pylint') {
             steps {
                 withEnv(["HOME=${env.WORKSPACE}"]) {
-                   
 		   dir("PM2022_TEAM_29"){
                         sh "python -m pylint App.py"
 		    }
-	    }
-  }
-   }
+	        }
+            }
+       }
   }
   post {
         always {
@@ -66,4 +65,5 @@ pipeline {
             echo 'Build stage failed'
             error('Stopping early…')
         }
-  }
+    }
+}

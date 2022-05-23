@@ -21,7 +21,6 @@ pipeline {
      
     stage('Cloning Git') {
       steps {
-	      sh '
        git url: 'https://github.com/Project-Management-SCE/PM2022_TEAM_29.git', branch: 'main'
       }
     }

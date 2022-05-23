@@ -32,8 +32,7 @@ pipeline {
         }
       }   
     } 
-  }
-stage('coverage') {
+  stage('coverage') {
             steps {
                 withEnv(["HOME=${env.WORKSPACE}"]) {
                     dir("PM2022_TEAM_29"){
@@ -44,16 +43,17 @@ stage('coverage') {
             }
         }
 		    
-			    stage('pylint') {
+   stage('pylint') {
             steps {
                 withEnv(["HOME=${env.WORKSPACE}"]) {
                    
 		   dir("PM2022_TEAM_29"){
                         sh "python -m pylint App.py"
 		    }
-		
 	    }
-			    }
+  }
+   }
+  }
   post {
         always {
             echo 'The pipeline completed'
@@ -67,4 +67,3 @@ stage('coverage') {
             error('Stopping early…')
         }
   }
-}

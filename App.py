@@ -831,5 +831,15 @@ def showStatus():
         return redirect(url_for('showStatus'))
     return render_template('showStatus.html', guests=guests)
 
+@app.route('/showOrgProfile',methods=['GET', 'POST'])
+def showOrgProfile():
+    Database()
+    global cursor
+    org = request.form['okkk']
+    session["wanted"] = org
+    guests = cursor.execute("SELECT * FROM `organization` WHERE username = ? ", (org, ))
+    return render_template('showOrgProfile.html', guests=guests)
+
+
 if __name__ == '__main__':
     app.run(debug=True)

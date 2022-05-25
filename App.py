@@ -869,6 +869,11 @@ def seeResult():
                 guests.remove(x1)
     return render_template('seeResult.html', guests=guests)
 
+def Report(vol,org, date):
+    Database()
+    global cursor
+    cursor.execute("UPDATE 'report' SET status=? WHERE voll=? AND orgg=? AND datte=?", ("ok", vol, org, date,))
+    conn.commit()
 
 if __name__ == '__main__':
     app.run(debug=True)

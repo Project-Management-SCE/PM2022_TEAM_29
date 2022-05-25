@@ -1,4 +1,4 @@
-884import unittest
+import unittest
 from flask import app
 from flask_wtf import form
 import App
@@ -49,7 +49,7 @@ class MyTestCase(unittest.TestCase):
     def test_delete_organization(self):
         App.Database()
         try:
-            username = "ssss"
+            username = "uuuu"
             global cursor
             App.delete_org(username)
             self.assertTrue(True)
@@ -59,7 +59,7 @@ class MyTestCase(unittest.TestCase):
     def test_register_org(self):
             App.Database()
             try:
-                username = "kkk"
+                username = "uuu"
                 password = "78337363"
                 name = "arina"
                 age = 19
@@ -183,12 +183,23 @@ class MyTestCase(unittest.TestCase):
     def test_SearchSomeone(self):
         App.Database()
         try:
-            username = "sujood"
+            username = "ggg"
             meen = "male"
             geel = 17
             mekoom = "Ber Sheva"
             hoby = "teaching swimming"
             App.Search_Somone(username, meen, geel, mekoom, hoby)
+            self.assertTrue(True)
+        except:
+            self.assertTrue(False)
+
+    def test_report(self):
+        App.Database()
+        try:
+            vol = "sujood"
+            org = "ssss"
+            date = "4-3-8"
+            App.Report(vol, org, date)
             self.assertTrue(True)
         except:
             self.assertTrue(False)

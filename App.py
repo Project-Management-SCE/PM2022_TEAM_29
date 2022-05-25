@@ -794,5 +794,13 @@ def editProfile():
         return redirect(url_for('editProfile'))
     return render_template('editProfile.html')
 
+@app.route('/showStatus', methods=["GET","POST"])
+def showStatus():
+    Database()
+    global cursor
+    guests = ()
+    guests = cursor.execute("SELECT * FROM `report` WHERE voll = ?", (session["uservol"], ))
+    return render_template('showStatus.html', guests=guests)
+
 if __name__ == '__main__':
     app.run(debug=True)

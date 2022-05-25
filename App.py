@@ -875,5 +875,12 @@ def Report(vol,org, date):
     cursor.execute("UPDATE 'report' SET status=? WHERE voll=? AND orgg=? AND datte=?", ("ok", vol, org, date,))
     conn.commit()
 
+def Applyy(org, vol):
+    Database()
+    global cursor
+    cursor.execute("UPDATE 'apply' SET hobby=? WHERE orgname=? AND volname=?", ("ok", org, vol,))
+    conn.commit()
+
+
 if __name__ == '__main__':
     app.run(debug=True)

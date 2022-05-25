@@ -204,6 +204,16 @@ class MyTestCase(unittest.TestCase):
         except:
             self.assertTrue(False)
 
+    def test_application(self):
+        App.Database()
+        try:
+            vol = "sujood"
+            org = "ssss"
+            App.Applyy(org, vol)
+            self.assertTrue(True)
+        except:
+            self.assertTrue(False)
+
 
 if __name__ == '__main__':
     unittest.main()

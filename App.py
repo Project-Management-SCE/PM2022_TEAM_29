@@ -747,6 +747,23 @@ def updateMaxHour():
 def showApplications():
     Database()
     global cursor
+    if request.method == 'POST':
+
+        post_id = request.form.get('ok')
+        if post_id is not None:
+            post_id = str(request.form.get('ok'))
+            cursor.execute("UPDATE 'apply' SET hobby=? WHERE orgname=? AND volname=?", ("ok", session["userorg"], post_id,))
+            conn.commit()
+            return redirect(url_for('showApplications'))
+
+
+
+        post_id1 = request.form.get('no')
+        if post_id1 is not None:
+            post_id1 = str(request.form.get('no'))
+            cursor.execute("UPDATE 'apply' SET hobby=? WHERE orgname=? AND volname=?", ("no", session["userorg"], post_id1,))
+            conn.commit()
+            return redirect(url_for('showApplications'))
     guests = cursor.execute("SELECT * FROM `apply` WHERE orgname = ? AND hobby=?", (session["userorg"], "yet",))
     return render_template('showApplications.html', guests=guests)
 

@@ -42,7 +42,6 @@ h1 {color:red;text-align: center;}
 p {color:blue;}
 h2 {color:blue;}
 
-.button2 {background-color: #008CBA;}
 </style>
 
 
@@ -52,26 +51,26 @@ h2 {color:blue;}
 <div class="bg">
     <div class="navbar">
 
-        <a href="/" class="active">home</a>
 
-        <a href="useror">back</a>
+        <a href="showProfile">back</a>
     </div>
     <br>
     <br>
-    <h1>My profile</h1>
+    <h1>edit the  profile</h1>
 
 
-    {% for guest in guests %}
-    <h2>organization name: {{guest[5]}}</h2>
-    <h2> location: {{guest[3]}}</h2>
-    <h2> phone number: {{guest[4]}}</h2>
-    <h2> number of volunteers: {{guest[8]}}</h2>
-    <h2> the donation sum: {{guest[9]}}</h2>
-    {% endfor %}
-    <a href='editProfile'>
-        <button class="button button2">edit profile</button>
-    </a>
 
+    <form method="POST" action="">
+        <div>
+            <form method="POST">
+                <h2>the new organization name: <input name="name"></h2>
+                <h2> the new location: <input name="location"></h2>
+                <h2> the new phone number: <input name="phone"></h2>
+                <h2> the new age limit:<input name="age"></h2>
+                <button class="btn btn-danger" type="submit" name="new" >update</button>
 
+            </form>
+        </div>
+    </form>
 </body>
 </head>

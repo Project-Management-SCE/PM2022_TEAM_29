@@ -765,5 +765,34 @@ def showProfile():
     guests = cursor.execute("SELECT * FROM `organization` WHERE `username` = ?", (session["userorg"],))
     return render_template('showProfile.html', guests=guests)
 
+@app.route('/editProfile', methods=["GET","POST"])
+def editProfile():
+    Database()
+    global cursor
+    if request.method == 'POST':
+        name = request.form['name']
+        location = request.form['location']
+        age = request.form['age']
+        phone = request.form['phone']
+        print(name)
+        print(location)
+        print(age)
+        print(phone)
+        if name!="":
+            cursor.execute("UPDATE 'organization' SET name=? WHERE username=? ", ( name, session["userorg"],))
+            conn.commit()
+        if location!="":
+            cursor.execute("UPDATE 'organization' SET location=? WHERE username=?", ( location, session["userorg"],))
+            conn.commit()
+        if age!="":
+            cursor.execute("UPDATE 'organization' SET age=? WHERE username=? ", ( age, session["userorg"],))
+            conn.commit()
+        if phone!="":
+            cursor.execute("UPDATE 'organization' SET phone=? WHERE username=? ", ( phone, session["userorg"],))
+            conn.commit()
+
+        return redirect(url_for('editProfile'))
+    return render_template('editProfile.html')
+
 if __name__ == '__main__':
     app.run(debug=True)

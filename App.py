@@ -650,30 +650,32 @@ def listHourOrg():
     return render_template('listHourOrg.html', guests=guests)
 
 @app.route('/reportHours', methods=['POST','GET'])
-# report Hours of volunteer 
+# report Hours of volunteer
 def reportHours():
     Database()
     form = ReportHoursForm()
     if request.method == 'POST':
-        organ = form.organ.data
+
         hhour = form.hhour.data
+        print(hhour)
         sstatus = "yet"
         ddaate = form.ddaate.data
         cursor.execute(
             "INSERT INTO `report` (orgg, voll, hour, status, datte) VALUES(?, ?, ?,?,?)",
-            (organ, session["uservol"], hhour, sstatus, ddaate))
+            (session["oorrgg"], session["uservol"], hhour, sstatus, ddaate))
         conn.commit()
         cursor.execute("SELECT * FROM `hours` WHERE `volname` = ?", (session["uservol"],))
 
         if cursor.fetchone() is not None:
             y = fun()
             m = y[2] + int(hhour)
+            print(m)
             cursor.execute("UPDATE 'hours' SET hour=? WHERE volname=?", (m, session["uservol"],))
             conn.commit()
         else:
             cursor.execute(
                 "INSERT INTO `hours` (orgname, volname, hour) VALUES(?, ?, ?)",
-                (organ, session["uservol"], hhour, ))
+                (session["oorrgg"], session["uservol"], hhour, ))
             conn.commit()
     flash("successfully added!")
     return render_template('reportHours.html', form=form, )
@@ -874,6 +876,17 @@ def apply(orgname, volname, age, location, phone, email,meen, hobby, id, job):
     except ValueError:
         print(ValueError)
 
+@app.route('/showOrgIAmIn', methods=['POST','GET'])
+def showOrgIAmIn():
+    Database()
+    global cursor
+    if request.method == 'POST':
+        org = request.form.get('ok')
+        session["oorrgg"] = org
+        print(org)
+        return redirect(url_for('reportHours'))
+    guests = cursor.execute("SELECT * FROM `apply` WHERE volname = ? AND hobby=?", (session["uservol"], "ok",))
+    return render_template('showOrgIAmIn.html', guests=guests)
 
 if __name__ == '__main__':
     app.run(debug=True)

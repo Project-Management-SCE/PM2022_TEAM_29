@@ -96,3 +96,17 @@ class UpdateMaxHourForm(FlaskForm):
     Maxhour = StringField("new hours number", validators=[DataRequired()])
     submit = SubmitField('update Max Hour')
 
+class ApplyForOrgForm(FlaskForm):
+    name = StringField(label='first name', validators=[DataRequired(), Length(min=4, max=30)])
+    age = StringField(label='age:', validators=[DataRequired(), Length(min=1, max=20)])
+    location = StringField(label='location', validators=[DataRequired(), Length(min=3, max=50)])
+    email = StringField(label='email', validators=[DataRequired(), Length(min=3, max=50)])
+    phone = StringField(label='phone', validators=[DataRequired(), Length(min=3, max=20)])
+    meen = SelectField('the organization volunteering field', choices=['male', 'female'])
+    id = StringField(label='identity number', validators=[DataRequired(), Length(min=1, max=50)])
+    hobby = StringField(label='hobby:', validators=[DataRequired(), Length(min=1, max=50)])
+    job = StringField('what is your job?', validators=[DataRequired(), Length(min=1, max=50)])
+    submit = SubmitField(label='Apply')
+
+
+

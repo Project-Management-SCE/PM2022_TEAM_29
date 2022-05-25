@@ -66,7 +66,14 @@ h2 {color:blue;}
     <h2> number of volunteers: {{guest[8]}}</h2>
     <h2> field of volunteering: {{guest[10]}}</h2>
     <h2> the rating of this organization: {{guest[7]}}</h2>
+    <div>
+        <form action = "{{ url_for('applyToOrg') }}" method = "post" >
 
+            <button class ="btn btn-danger" type="submit" name="botton" value="{{guest[0] }}">
+                <span class ="glyphicon glyphicon-trash" > </span> apply to this organization </button>
+
+        </form>
+    </div>
 
     {% endfor %}
 </body>

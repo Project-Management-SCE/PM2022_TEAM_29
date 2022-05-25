@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, flash, session, redirect, url_for, abort
 import sqlite3
 from forms import signupForm, SignOutForm, LoginForm, signupFormOrg, DeleteVolunteerForm, DeleteOrganizationForm, DeleteFieldForm, UpdateDonationForm, DivideDonationForm, UpdateRatingForm, AddFieldForm, SearchForVolunteerForm, ReportHoursForm
-from forms import UpdateMaxVolForm, UpdateMaxHourForm
+from forms import UpdateMaxVolForm, UpdateMaxHourForm, ApplyForOrgForm
 from datetime import datetime
 from werkzeug.utils import secure_filename
 from PIL import Image
@@ -839,6 +839,40 @@ def showOrgProfile():
     session["wanted"] = org
     guests = cursor.execute("SELECT * FROM `organization` WHERE username = ? ", (org, ))
     return render_template('showOrgProfile.html', guests=guests)
+
+@app.route('/applyToOrg',methods=['GET', 'POST'])
+def applyToOrg():
+    Database()
+    global cursor
+    form = ApplyForOrgForm()
+
+    if request.method == 'POST':
+        name = form.name.data
+        age = form.age.data
+        location = form.location.data
+        email = form.email.data
+        phone = form.phone.data
+        meen = form.meen.data
+        hobby = form.hobby.data
+        id = form.id.data
+        job = form.job.data
+        cursor.execute("SELECT * FROM `apply` WHERE `volname` = ? AND 'orgname'=?", (name, session["wanted"],))
+        if cursor.fetchone() is not None:
+            flash("apply already exist")
+            return render_template('applyToOrg.html', form=form)
+        else:
+            apply(session["wanted"], str(name), str(age), str(location), str(email), str(phone), str(meen), str(hobby), str(id), str(job))
+            cursor.close()
+            conn.close()
+    return render_template('applyToOrg.html', form=form)
+
+def apply(orgname, volname, age, location, phone, email,meen, hobby, id, job):
+    try:
+        cursor.execute("INSERT INTO `apply` (orgname, volname, age, location, phone, email,meen, hobby, id, job) VALUES(?, ?, ?,?,?,?,?,?,?,?)",
+                       (orgname, volname, age, location, phone, email,meen, "yet", id, job))
+        conn.commit()
+    except ValueError:
+        print(ValueError)
 
 
 if __name__ == '__main__':

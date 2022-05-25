@@ -888,5 +888,53 @@ def showOrgIAmIn():
     guests = cursor.execute("SELECT * FROM `apply` WHERE volname = ? AND hobby=?", (session["uservol"], "ok",))
     return render_template('showOrgIAmIn.html', guests=guests)
 
+@app.route('/searchOrganization', methods=['GET', 'POST'])
+def searchOrganization():
+    Database()
+    global cursor
+    cursor.execute("DELETE FROM 'Search' WHERE org=?", (session["uservol"],))
+    conn.commit()
+    if request.method == 'POST':
+        name = request.form['name']
+        location = request.form['location']
+        age = request.form['age']
+        field = request.form['field']
+        cursor.execute(
+            "INSERT INTO `Search` (org, meen, geel, mekom, hoby) VALUES(?,?, ?, ?,?)",
+            (session["uservol"], name, location, age, field, ))
+        conn.commit()
+        return redirect(url_for('seeResult'))
+    return render_template('searchOrganization.html')
+
+@app.route('/seeResult', methods=['GET', 'POST'])
+def seeResult():
+    Database()
+    global cursor
+    guests = cursor.execute("SELECT * FROM `organization`").fetchall()
+    # guests=[]
+    x = cursor.execute("SELECT * FROM `Search` WHERE `org` = ?", (session["uservol"],)).fetchall()
+    if x[0][1] != "":
+        g = cursor.execute("SELECT * FROM `organization` WHERE `name` != ?", (x[0][1],)).fetchall()
+        for x1 in g:
+            if x1 in guests:
+                guests.remove(x1)
+    if x[0][2] != "":
+        g = cursor.execute("SELECT * FROM `organization` WHERE `location` != ?", (x[0][2],)).fetchall()
+        for x1 in g:
+            if x1 in guests:
+                guests.remove(x1)
+    if x[0][3] != "":
+        g = cursor.execute("SELECT * FROM `organization` WHERE `age` > ?", (x[0][3],)).fetchall()
+        for x1 in g:
+            if x1 in guests:
+                guests.remove(x1)
+    if x[0][4] != "":
+        g = cursor.execute("SELECT * FROM `organization` WHERE `hobby` != ?", (x[0][4],)).fetchall()
+        for x1 in g:
+            if x1 in guests:
+                guests.remove(x1)
+    return render_template('seeResult.html', guests=guests)
+
+
 if __name__ == '__main__':
     app.run(debug=True)

@@ -1,0 +1,88 @@
+
+<head>
+    <body>
+    
+    
+    <style>
+    body, html {
+      height: 100%;
+      margin: 0;
+    }
+    
+    body {margin:0;}
+    
+    .navbar {
+      overflow: hidden;
+      background-color: rgb(7, 124, 139);
+      position: fixed;
+      top: 0;
+      width: 100%;
+    }
+    
+    .navbar a {
+      float: left;
+      display: block;
+      color: #e7eaeb;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+      font-size: 17px;
+    }
+    
+    .navbar a:hover {
+      background: #ddd;
+      color: black;
+    }
+    
+    
+    body{
+        background-color:lightblue
+    }
+    table {
+      border: 1px solid black;
+    }
+    
+    table {
+      border: 1px solid black;
+      font: 16px "Open Sans", Helvetica, Arial, sans-serif;
+    }
+    
+    thead > tr {
+      background-color: rgb(228, 240, 245);
+    }
+    
+    th, td {
+      border: 1px solid black;
+      padding:4px 6px;
+    }
+    
+    </style>
+    
+    
+    
+    
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main2.css') }}">
+    <div class="navbar">
+    
+    
+      <a href="volunteerPage">back</a>
+    </div>
+    <br>
+    <br>
+    <br>
+    <h2>Search organizations</h2>
+    
+    <form method="POST" action="">
+      <div>
+          <form method="POST">
+              <h2>the name of organization: <input name="name"></h2>
+        <h2> the location of the organization: <input name="location"></h2>
+            <h2> the field of the organization: <input name="field"></h2>
+        <h2> the age limit of the organization:<input name="age"></h2>
+              <button class="btn btn-danger" type="submit" name="new" >search</button>
+    
+    </form>
+        <br>
+    
+    </body>
+    </head>

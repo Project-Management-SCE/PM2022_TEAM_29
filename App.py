@@ -743,5 +743,22 @@ def updateMaxHour():
     flash("successfully updated!")
     return render_template('updateMaxHour.html', form=form, )
 
+@app.route('/showApplications', methods=["GET","POST"])
+def showApplications():
+    Database()
+    global cursor
+    guests = cursor.execute("SELECT * FROM `apply` WHERE orgname = ? AND hobby=?", (session["userorg"], "yet",))
+    return render_template('showApplications.html', guests=guests)
+
+@app.route('/showApply',methods=['GET', 'POST'])
+def showApply():
+    Database()
+    global cursor
+    vol = request.form['talk']
+    # print(vol)
+    guests = cursor.execute("SELECT * FROM `apply` WHERE volname = ? AND orgname=?", (vol, session["userorg"], ))
+    return render_template('showApply.html', guests=guests)
+
+
 if __name__ == '__main__':
     app.run(debug=True)

@@ -817,6 +817,18 @@ def showStatus():
     global cursor
     guests = ()
     guests = cursor.execute("SELECT * FROM `report` WHERE voll = ?", (session["uservol"], ))
+    if request.method == 'POST':
+        text = int(request.form['text'])
+        post_id = request.form.get('new')
+        post_id = post_id.split(',')
+        print(text)
+        print(post_id)
+        cursor.execute("UPDATE 'report' SET hour=? WHERE orgg=? AND voll=? AND datte=?", (text,post_id[0], session["uservol"],post_id[1],))
+        conn.commit()
+        cursor.execute("UPDATE 'report' SET status=? WHERE orgg=? AND voll=? AND datte=?",
+                       ("yet", post_id[0], session["uservol"], post_id[1],))
+        conn.commit()
+        return redirect(url_for('showStatus'))
     return render_template('showStatus.html', guests=guests)
 
 if __name__ == '__main__':

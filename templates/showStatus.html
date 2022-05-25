@@ -97,6 +97,19 @@ th, td {
 
              </td>
           <td>
+              {% if guest[4]!=None %}
+              {% if guest[3]!="ok"  %}
+
+              <form method="POST" action="">
+                  <div>
+                      <form method="POST">
+                          <input name="text">
+                          <button class="btn btn-danger" type="submit" name="new" value="{{  guest[0]+','+guest[4] }}"><span class="glyphicon glyphicon-trash"></span> update</button>
+                      </form>
+                  </div>
+              </form>
+              {% endif %}
+              {% endif %}
 
           </td>
       </div>

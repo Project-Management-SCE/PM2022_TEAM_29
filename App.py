@@ -759,6 +759,11 @@ def showApply():
     guests = cursor.execute("SELECT * FROM `apply` WHERE volname = ? AND orgname=?", (vol, session["userorg"], ))
     return render_template('showApply.html', guests=guests)
 
+@app.route('/showProfile', methods=['GET'])
+def showProfile():
+    Database()
+    guests = cursor.execute("SELECT * FROM `organization` WHERE `username` = ?", (session["userorg"],))
+    return render_template('showProfile.html', guests=guests)
 
 if __name__ == '__main__':
     app.run(debug=True)

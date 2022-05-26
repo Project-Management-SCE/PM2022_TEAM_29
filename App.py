@@ -935,5 +935,11 @@ def apply_report(org, vol, hhour, sstatus, ddaate):
         (org, vol, hhour, sstatus, ddaate))
     conn.commit()
 
+def update_hourss(hh, vol):
+    Database()
+    global cursor
+    cursor.execute("UPDATE 'hours' SET hour=? WHERE volname=?", (hh, vol,))
+    conn.commit()
+
 if __name__ == '__main__':
     app.run(debug=True)

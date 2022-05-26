@@ -268,6 +268,16 @@ class MyTestCase(unittest.TestCase):
         except:
             self.assertTrue(False)
 
+    def test_update_hourss(self):
+        App.Database()
+        try:
+            vol = "sujood"
+            hh = 15
+            App.update_hourss(hh, vol)
+            self.assertTrue(True)
+        except:
+            self.assertTrue(False)
+
 
 if __name__ == '__main__':
     unittest.main()

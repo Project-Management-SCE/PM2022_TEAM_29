@@ -881,6 +881,19 @@ def Applyy(org, vol):
     cursor.execute("UPDATE 'apply' SET hobby=? WHERE orgname=? AND volname=?", ("ok", org, vol,))
     conn.commit()
 
+def pick_field(vol, name,location,age,field):
+    Database()
+    global cursor
+    cursor.execute(
+        "INSERT INTO `Search` (org, meen, geel, mekom, hoby) VALUES(?,?, ?, ?,?)",
+        (vol, name, location, age, field,))
+    conn.commit()
+
+def update_num_vol(num, org):
+    Database()
+    global cursor
+    cursor.execute("UPDATE 'organization' SET maxvol=? WHERE username=?", (num, org,))
+    conn.commit()
 
 if __name__ == '__main__':
     app.run(debug=True)

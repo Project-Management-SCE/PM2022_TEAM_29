@@ -213,6 +213,19 @@ class MyTestCase(unittest.TestCase):
             self.assertTrue(True)
         except:
             self.assertTrue(False)
+    def test_pick_field(self):
+        App.Database()
+        try:
+            vol = "admin"
+            name = "ssss"
+            location = "Arad"
+            age = "17"
+            field = "curing"
+            App.pick_field(vol, name, location, age, field)
+            self.assertTrue(True)
+        except:
+            self.assertTrue(False)
+    
 
 
 if __name__ == '__main__':

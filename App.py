@@ -281,7 +281,7 @@ def deleteField():
         Database()
         global cursor
 
-        cursor.execute("SELECT * FROM `organization` WHERE `hobby` = ?",
+        cursor.execute("SELECT * FROM `Fields` WHERE `name` = ?",
                        (nameField,))
         # if form.validate_on_submit():
         if cursor.fetchone() is not None:
@@ -289,7 +289,7 @@ def deleteField():
         else:
             print("this Field is not exits")
             return redirect(url_for('deleteField'))
-        cursor.execute("DELETE FROM 'organization' WHERE hobby=?", (nameField,))
+        cursor.execute("DELETE FROM 'Fields' WHERE name=?", (nameField,))
         conn.commit()
         return render_template('deleteField.html', form=form, )
 
@@ -902,5 +902,29 @@ def Max_hours(Maxhour, username, org):
                    (Maxhour, username, org,))
     conn.commit()
 
+@app.route('/addOrg', methods=['GET', 'POST'])
+def addOrg():
+    Database()
+    form = signupFormOrg()
+    guest = cursor.execute("SELECT * FROM `Fields`")
+    form.hobby.choices = [(x[0]) for x in guest]
+    if request.method == 'POST':
+        username = form.username.data
+        password = form.password.data
+        name = form.name.data
+        age = form.age.data
+        location = form.location.data
+        phone = form.phone.data
+        maxvol = form.maxvol.data
+        hobby = form.hobby.data
+        cursor.execute("SELECT * FROM `organization` WHERE `username` = ?", (username,))
+        if cursor.fetchone() is not None:
+            flash("username already exist")
+            return render_template('addOrg.html', form=form)
+        else:
+            insert_organization(str(username), str(password), str(name), str(age), str(location), str(phone), str(maxvol), str(hobby))
+            cursor.close()
+            conn.close()
+    return render_template('addOrg.html', form=form)
 if __name__ == '__main__':
     app.run(debug=True)

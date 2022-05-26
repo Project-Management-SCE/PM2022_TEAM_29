@@ -889,11 +889,7 @@ def pick_field(vol, name,location,age,field):
         (vol, name, location, age, field,))
     conn.commit()
 
-def update_num_vol(num, org):
-    Database()
-    global cursor
-    cursor.execute("UPDATE 'organization' SET maxvol=? WHERE username=?", (num, org,))
-    conn.commit()
+
 
 if __name__ == '__main__':
     app.run(debug=True)

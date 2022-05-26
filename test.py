@@ -225,7 +225,15 @@ class MyTestCase(unittest.TestCase):
             self.assertTrue(True)
         except:
             self.assertTrue(False)
-    
+    def test_update_num_vol(self):
+        App.Database()
+        try:
+            num = 140
+            org = "ssss"
+            App.update_num_vol(num, org)
+            self.assertTrue(True)
+        except:
+            self.assertTrue(False)
 
 
 if __name__ == '__main__':

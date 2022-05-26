@@ -244,5 +244,16 @@ class MyTestCase(unittest.TestCase):
         except:
             self.assertTrue(False)
 
+    def test_Max_hours(self):
+        App.Database()
+        try:
+            Maxhour = 200
+            username = "sujood"
+            org = "ssss"
+            App.Max_hours(Maxhour, username, org)
+            self.assertTrue(True)
+        except:
+            self.assertTrue(False)
+
 if __name__ == '__main__':
     unittest.main()

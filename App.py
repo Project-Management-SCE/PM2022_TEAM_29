@@ -894,7 +894,13 @@ def edit_Profile(name, org):
     global cursor
     cursor.execute("UPDATE 'organization' SET name=? WHERE username=? ", (name, org,))
     conn.commit()
-    
+
+def Max_hours(Maxhour, username, org):
+    Database()
+    global cursor
+    cursor.execute("UPDATE 'hours' SET limitt=? WHERE volname=? and orgname=?",
+                   (Maxhour, username, org,))
+    conn.commit()
 
 if __name__ == '__main__':
     app.run(debug=True)

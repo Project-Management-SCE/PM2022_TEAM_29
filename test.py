@@ -234,7 +234,15 @@ class MyTestCase(unittest.TestCase):
             self.assertTrue(True)
         except:
             self.assertTrue(False)
-
+    def edit_Profile(self):
+        App.Database()
+        try:
+            name = "sujood"
+            org = "ssss"
+            App.Applyy(name, org)
+            self.assertTrue(True)
+        except:
+            self.assertTrue(False)
 
 if __name__ == '__main__':
     unittest.main()

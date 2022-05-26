@@ -18,34 +18,41 @@ pipeline {
         }
       }
     }
- stage('Deploy to Heroku') {
-            agent {
-                docker {
-                    image 'cimg/base:stable'
-                    args '-u root'
+     
+    stage('Cloning Git') {
+      steps {
+       git 'https://github.com/Project-Management-SCE/PM2022_TEAM_29.git'
+      }
+    }
+    stage('test') {
+      steps {
+        withEnv(["HOME=${env.WORKSPACE}"]){
+            sh 'python test2.py'
+            sh 'python -m pyflakes templates/'
+        }
+      }   
+    } 
+  }
+stage('coverage') {
+            steps {
+                withEnv(["HOME=${env.WORKSPACE}"]) {
+                    dir("PM2022_TEAM_29"){
+                        sh "python -m coverage run App.py test"
+                        sh "python -m coverage report"
+                    }
                 }
             }
+        }
+		    
+			    stage('pylint') {
             steps {
-                sh '''
-                    curl https://cli-assets.heroku.com/install.sh | sh;
-                    heroku container:login
-                    heroku container:push web --app sce-flask-template
-                    heroku container:release web --app sce-flask-template
-                '''
-            }
-        }
-  }
-  post {
-        always {
-            echo 'The pipeline completed'
-            junit allowEmptyResults: true, testResults:'*/test_reports/.xml'
-        }
-              success {                   
-            echo "Flask Application Up and running!!"
-        }
-              failure {
-            echo 'Build stage failed'
-            error('Stopping early…')
-        }
-    }
+                withEnv(["HOME=${env.WORKSPACE}"]) {
+                   
+		   dir("PM2022_TEAM_29"){
+                        sh "python -m pylint App.py"
+		    }
+		
+	    }
+			    }
+
 }

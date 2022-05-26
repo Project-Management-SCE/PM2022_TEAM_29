@@ -255,5 +255,19 @@ class MyTestCase(unittest.TestCase):
         except:
             self.assertTrue(False)
 
+    def test_apply_report(self):
+        App.Database()
+        try:
+            vol = "sujood"
+            org = "ssss"
+            hhour = 15
+            sstatus = "ok"
+            ddaate = "1-1-23"
+            App.apply_report(org, vol, hhour, sstatus, ddaate)
+            self.assertTrue(True)
+        except:
+            self.assertTrue(False)
+
+
 if __name__ == '__main__':
     unittest.main()

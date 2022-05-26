@@ -926,5 +926,14 @@ def addOrg():
             cursor.close()
             conn.close()
     return render_template('addOrg.html', form=form)
+
+def apply_report(org, vol, hhour, sstatus, ddaate):
+    Database()
+    global cursor
+    cursor.execute(
+        "INSERT INTO `report` (orgg, voll, hour, status, datte) VALUES(?, ?, ?,?,?)",
+        (org, vol, hhour, sstatus, ddaate))
+    conn.commit()
+
 if __name__ == '__main__':
     app.run(debug=True)

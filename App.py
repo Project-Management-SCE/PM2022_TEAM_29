@@ -598,24 +598,11 @@ def reportHours():
             "INSERT INTO `report` (orgg, voll, hour, status, datte) VALUES(?, ?, ?,?,?)",
             (session["oorrgg"], session["uservol"], hhour, sstatus, ddaate))
         conn.commit()
-        cursor.execute("SELECT * FROM `hours` WHERE `volname` = ?", (session["uservol"],))
-
-        if cursor.fetchone() is not None:
-            y = fun()
-            m = y[2] + int(hhour)
-            print(m)
-            cursor.execute("UPDATE 'hours' SET hour=? WHERE volname=?", (m, session["uservol"],))
-            conn.commit()
-        else:
-            cursor.execute(
-                "INSERT INTO `hours` (orgname, volname, hour) VALUES(?, ?, ?)",
-                (session["oorrgg"], session["uservol"], hhour, ))
-            conn.commit()
     flash("successfully added!")
     return render_template('reportHours.html', form=form, )
 
-def fun():
-    cursor.execute("SELECT * FROM `hours` WHERE `volname` = ?", (session["uservol"],))
+def fun(z):
+    cursor.execute("SELECT * FROM `hours` WHERE `volname` = ?", (z,))
     y = cursor.fetchall()[0]
     return y
 
@@ -643,6 +630,20 @@ def approvalHours():
 
             cursor.execute("UPDATE 'report' SET status=? WHERE voll=? AND orgg=? AND datte=?", ("ok", post_id[0], session["userorg"], post_id[1],))
             conn.commit()
+            aa = cursor.execute("SELECT * FROM `report` WHERE voll=? AND orgg=? AND datte=? ", (post_id[0], session["userorg"], post_id[1],)).fetchall()
+            cursor.execute("SELECT * FROM `hours` WHERE `volname` = ?", (post_id[0],))
+
+            if cursor.fetchone() is not None:
+                y = fun(post_id[0])
+                m = y[2] + int(aa[0][2])
+                print(m)
+                cursor.execute("UPDATE 'hours' SET hour=? WHERE volname=?", (m, post_id[0],))
+                conn.commit()
+            else:
+                cursor.execute(
+                    "INSERT INTO `hours` (orgname, volname, hour) VALUES(?, ?, ?)",
+                    (session["oorrgg"], post_id[0], aa[0][2],))
+                conn.commit()
             return redirect(url_for('approvalHours'))
         post_id1 = request.form.get('no')
         if post_id1 is not None:
@@ -689,6 +690,10 @@ def showApplications():
         if post_id is not None:
             post_id = str(request.form.get('ok'))
             cursor.execute("UPDATE 'apply' SET hobby=? WHERE orgname=? AND volname=?", ("ok", session["userorg"], post_id,))
+            conn.commit()
+            aa = cursor.execute("SELECT * FROM `organization` WHERE username=? ", (session["userorg"],)).fetchall()
+            cursor.execute("UPDATE 'organization' SET numvol=? WHERE username=?",
+                           (int(aa[0][8]) + 1, session["userorg"],))
             conn.commit()
             return redirect(url_for('showApplications'))
 

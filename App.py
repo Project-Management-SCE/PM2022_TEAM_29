@@ -941,5 +941,12 @@ def update_hourss(hh, vol):
     cursor.execute("UPDATE 'hours' SET hour=? WHERE volname=?", (hh, vol,))
     conn.commit()
 
+
+@app.route('/map', methods=['GET', 'POST'])
+def map():
+    return render_template('map.html')
+
+
+
 if __name__ == '__main__':
     app.run(debug=True)

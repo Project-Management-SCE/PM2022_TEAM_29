@@ -8,7 +8,7 @@ class MyTestCase(unittest.TestCase):
     def test_register(self):
         App.Database()
         try:
-            username = "arin"
+            username = "nooor"
             password = "123445"
             name = "sama"
             age = 23
@@ -25,7 +25,7 @@ class MyTestCase(unittest.TestCase):
     def test_fall_register(self):
         App.Database()
         try:
-            username = "sondoss"
+            username = "nooor"
             password = "123445"
             name = "sama"
             age = 23
@@ -41,27 +41,16 @@ class MyTestCase(unittest.TestCase):
     def test_delete(self):
         App.Database()
         try:
-            username = "sujood"
+            username = "nooor"
             global cursor
             App.delete(username)
             self.assertTrue(True)
         except:
             self.assertTrue(False)
-
-    def test_delete_organization(self):
-        App.Database()
-        try:
-            username = "uuuu"
-            global cursor
-            App.delete_org(username)
-            self.assertTrue(True)
-        except:
-            self.assertTrue(False)
-
     def test_register_org(self):
             App.Database()
             try:
-                username = "uuu"
+                username = "kkk"
                 password = "78337363"
                 name = "arina"
                 age = 19
@@ -78,7 +67,7 @@ class MyTestCase(unittest.TestCase):
     def test_fall_register(self):
             App.Database()
             try:
-                username = "kuuu"
+                username = "kkk"
                 password = "78337363"
                 name = "arina"
                 age = 19
@@ -92,11 +81,29 @@ class MyTestCase(unittest.TestCase):
                 self.assertFalse(True)
             except:
                 self.assertFalse(False)
+    def test_delete_organization(self):
+        App.Database()
+        try:
+            username = "kkk"
+            global cursor
+            App.delete_org(username)
+            self.assertTrue(True)
+        except:
+            self.assertTrue(False)
+
+    def test_add_field(self):
+        App.Database()
+        try:
+            field = "cure"
+            App.add_field(field)
+            self.assertTrue(True)
+        except:
+            self.assertTrue(False)
 
     def test_delete_field(self):
                 App.Database()
                 try:
-                    field = "hope"
+                    field = "cure"
                     App.delete_field(field)
                     self.assertTrue(True)
                 except:
@@ -114,7 +121,7 @@ class MyTestCase(unittest.TestCase):
     def test_add_organization(self):
             App.Database()
             try:
-                username = "org"
+                username = "hhh"
                 password = "6355gg363"
                 name = "organizatio"
                 age = 15
@@ -132,7 +139,7 @@ class MyTestCase(unittest.TestCase):
     def test_fall_add_organization(self):
             App.Database()
             try:
-                username = "org"
+                username = "hhh"
                 password = "6355gg363"
                 name = "organizatio"
                 age = 15
@@ -150,21 +157,13 @@ class MyTestCase(unittest.TestCase):
     def test_divide_to_organization(self):
             App.Database()
             try:
-                username = "ssss"
+                username = "kheer"
                 donation="5000"
                 App.divide_donation(donation,username)
                 self.assertTrue(True)
             except:
                 self.assertTrue(False)
 
-    def test_add_field(self):
-        App.Database()
-        try:
-            field = "cure"
-            App.add_field(field)
-            self.assertTrue(True)
-        except:
-            self.assertTrue(False)
 
     def test_update_rating(self):
         App.Database()
@@ -180,7 +179,7 @@ class MyTestCase(unittest.TestCase):
     def test_addFieldAdmin(self):
         App.Database()
         try:
-            field = "heal"
+            field = "curr"
             App.add_Field_Admin(field)
             self.assertTrue(True)
         except:
@@ -189,7 +188,7 @@ class MyTestCase(unittest.TestCase):
     def test_SearchSomeone(self):
         App.Database()
         try:
-            username = "ggg"
+            username = "k"
             meen = "male"
             geel = 17
             mekoom = "Ber Sheva"
@@ -245,7 +244,7 @@ class MyTestCase(unittest.TestCase):
         App.Database()
         try:
             name = "sujood"
-            org = "ssss"
+            org = "kheer"
             App.Applyy(name, org)
             self.assertTrue(True)
         except:
@@ -266,7 +265,7 @@ class MyTestCase(unittest.TestCase):
         App.Database()
         try:
             vol = "sujood"
-            org = "ssss"
+            org = "kheer"
             hhour = 15
             sstatus = "ok"
             ddaate = "1-1-23"

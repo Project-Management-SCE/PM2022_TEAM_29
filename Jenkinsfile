@@ -2,12 +2,6 @@
 pipeline {
     agent none
     stages {
-
-        stage('Cloning Git') {
-      steps {
-       git 'https://github.com/Project-Management-SCE/PM2022_TEAM_29.git'
-      }
-    }
         stage('Build') {
             agent {
                 docker {

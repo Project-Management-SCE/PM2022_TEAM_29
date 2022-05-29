@@ -1,6 +1,4 @@
 import unittest
-from flask import app
-from flask_wtf import form
 import App
 
 

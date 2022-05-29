@@ -174,7 +174,7 @@ class MyTestCase(unittest.TestCase):
     def test_addFieldAdmin(self):
         App.Database()
         try:
-            field = "healing"
+            field = "heal"
             App.add_Field_Admin(field)
             self.assertTrue(True)
         except:
@@ -229,7 +229,7 @@ class MyTestCase(unittest.TestCase):
         App.Database()
         try:
             num = 140
-            org = "ssss"
+            org = "kheer"
             App.update_num_vol(num, org)
             self.assertTrue(True)
         except:

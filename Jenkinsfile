@@ -17,9 +17,7 @@ pipeline {
             sh 'pip install --user pyflakes'
         }
       }
-    }
-     
-    stage('Cloning Git') {
+          stage('Cloning Git') {
       steps {
        git 'https://github.com/Project-Management-SCE/PM2022_TEAM_29.git'
       }
@@ -30,9 +28,10 @@ pipeline {
             sh 'python test2.py'
             sh 'python -m pyflakes templates/'
         }
-      }   
-    } 
+      }
+    }
   }
+    }
 stage('coverage') {
             steps {
                 withEnv(["HOME=${env.WORKSPACE}"]) {
@@ -44,7 +43,7 @@ stage('coverage') {
             }
         }
 		    
-			    stage('pylint') {
+	    stage('pylint') {
             steps {
                 withEnv(["HOME=${env.WORKSPACE}"]) {
                    

@@ -2,12 +2,7 @@ from flask import Flask, render_template, request, flash, session, redirect, url
 import sqlite3
 from forms import signupForm, SignOutForm, LoginForm, signupFormOrg, DeleteVolunteerForm, DeleteOrganizationForm, DeleteFieldForm, UpdateDonationForm, DivideDonationForm, UpdateRatingForm, AddFieldForm, SearchForVolunteerForm, ReportHoursForm
 from forms import UpdateMaxVolForm, UpdateMaxHourForm, ApplyForOrgForm
-from datetime import datetime
-from werkzeug.utils import secure_filename
-from PIL import Image
-import PIL
-from werkzeug.utils import secure_filename
-import os
+
 
 app = Flask(__name__)
 
@@ -37,9 +32,7 @@ import urllib.request
 Database()
 app.config['SECRET_KEY'] = 'Sujood'
 
-import json
-import os
-import tempfile
+
 from werkzeug.utils import secure_filename
 app.config["ALLOWED_IMAGE_EXTENSIONS"] = ["JPEG", "JPG", "PNG", "GIF"]
 app.config["MAX_IMAGE_FILESIZE"] = 0.5 * 1024 * 1024

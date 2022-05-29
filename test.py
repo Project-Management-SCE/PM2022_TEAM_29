@@ -16,7 +16,8 @@
 #             phone = "0433433443"
 #             hour = 15
 #             hobby = "reading and helping people"
-#             App.insert_volunteer(str(username), str(password), str(name), str(age), str(location), str(phone), str(hobby))
+#             App.insert_volunteer(str(username), str(password)
+#             , str(name), str(age), str(location), str(phone), str(hobby))
 #             self.assertTrue(True)
 #         except:
 #             self.assertTrue(False)
@@ -32,7 +33,8 @@
 #             phone = "0433433443"
 #             hour = 15
 #             hobby = "reading and helping people"
-#             App.insert_volunteer(str(username), str(password), str(name), str(age), str(location), str(phone), str(hobby))
+#             App.insert_volunteer(str(username), str(password),
+#             str(name), str(age), str(location), str(phone), str(hobby))
 #             self.assertFalse(True)
 #         except:
 #             self.assertFalse(False)
@@ -67,7 +69,8 @@
 #                 phone = "0537352882"
 #                 maxvol = "150"
 #                 hobby = "curing"
-#                 App.insert_organization(str(username), str(password), str(name), str(age), str(location), str(phone),
+#                 App.insert_organization(str(username), str(password),
+#                 str(name), str(age), str(location), str(phone),
 #                                     str(maxvol), str(hobby))
 #                 self.assertTrue(True)
 #             except:
@@ -83,7 +86,8 @@
 #                 phone = "0537352882"
 #                 maxvol = 150
 #                 hobby = "curing"
-#                 App.insert_organization(str(username), str(password), str(name), str(age), str(location), str(phone),
+#                 App.insert_organization(str(username), str(password),
+#                 str(name), str(age), str(location), str(phone),
 #                                         str(maxvol), str(hobby))
 #                 self.assertFalse(True)
 #             except:
@@ -118,7 +122,8 @@
 #                 phone = "057376628"
 #                 maxvol = "200"
 #                 hobby = "reading"
-#                 App.insert_organization(str(username), str(password), str(name), str(age), str(location), str(phone),
+#                 App.insert_organization(str(username), str(password),
+#                 str(name), str(age), str(location), str(phone),
 #                                         str(maxvol), str(hobby))
 #                 self.assertTrue(True)
 #             except:
@@ -135,7 +140,8 @@
 #                 phone = "057376628"
 #                 maxvol = "200"
 #                 hobby = "reading"
-#                 App.insert_organization(str(username), str(password), str(name), str(age), str(location), str(phone),
+#                 App.insert_organization(str(username), str(password), str(name),
+#                 str(age), str(location), str(phone),
 #                                         str(maxvol), str(hobby))
 #                 self.assertFalse(True)
 #             except:

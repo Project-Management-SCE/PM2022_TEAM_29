@@ -62,7 +62,7 @@ pipeline {
 
 					withEnv(["HOME=${env.WORKSPACE}"]) {
 
-						sh "python -m pylint App.py"
+						sh "python -m pylint test"
 					}
 
 			}

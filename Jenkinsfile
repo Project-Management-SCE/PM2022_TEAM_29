@@ -25,7 +25,7 @@ pipeline {
     stage('test') {
       steps {
         withEnv(["HOME=${env.WORKSPACE}"]){
-            sh 'python test2.py'
+            sh 'python test.py'
             sh 'python -m pyflakes templates/'
         }
       }

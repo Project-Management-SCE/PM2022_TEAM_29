@@ -17,41 +17,41 @@ pipeline {
             sh 'pip install --user pyflakes'
         }
       }
-          stage('Cloning Git') {
-      steps {
-       git 'https://github.com/Project-Management-SCE/PM2022_TEAM_29.git'
-      }
     }
-    stage('test') {
-      steps {
-        withEnv(["HOME=${env.WORKSPACE}"]){
-            sh 'python test.py'
-            sh 'python -m pyflakes templates/'
-        }
-      }
-    }
-  }
-    }
-stage('coverage') {
-            steps {
-                withEnv(["HOME=${env.WORKSPACE}"]) {
-                    dir("PM2022_TEAM_29"){
-                        sh "python -m coverage run App.py test"
-                        sh "python -m coverage report"
-                    }
-                }
-            }
-        }
-		    
-	    stage('pylint') {
-            steps {
-                withEnv(["HOME=${env.WORKSPACE}"]) {
-                   
-		   dir("PM2022_TEAM_29"){
-                        sh "python -m pylint App.py"
-		    }
-		
-	    }
-			    }
-
+//     stage('Cloning Git') {
+//       steps {
+//        git 'https://github.com/Project-Management-SCE/PM2022_TEAM_29.git'
+//       }
+//     }
+//     stage('test') {
+//       steps {
+//         withEnv(["HOME=${env.WORKSPACE}"]){
+//             sh 'python test2.py'
+//             sh 'python -m pyflakes templates/'
+//         }
+//       }
+//     }
+//   }
+// stage('coverage') {
+//             steps {
+//                 withEnv(["HOME=${env.WORKSPACE}"]) {
+//                     dir("PM2022_TEAM_29"){
+//                         sh "python -m coverage run App.py test"
+//                         sh "python -m coverage report"
+//                     }
+//                 }
+//             }
+//         }
+//
+// 	    stage('pylint') {
+//             steps {
+//                 withEnv(["HOME=${env.WORKSPACE}"]) {
+//
+// 		   dir("PM2022_TEAM_29"){
+//                         sh "python -m pylint App.py"
+// 		    }
+//
+// 	    }
+// 			    }
+//
 }

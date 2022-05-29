@@ -114,7 +114,7 @@ class MyTestCase(unittest.TestCase):
     def test_add_organization(self):
             App.Database()
             try:
-                username = "orggg"
+                username = "org"
                 password = "6355gg363"
                 name = "organizatio"
                 age = 15
@@ -132,7 +132,7 @@ class MyTestCase(unittest.TestCase):
     def test_fall_add_organization(self):
             App.Database()
             try:
-                username = "orggg"
+                username = "org"
                 password = "6355gg363"
                 name = "organizatio"
                 age = 15
@@ -160,7 +160,7 @@ class MyTestCase(unittest.TestCase):
     def test_add_field(self):
         App.Database()
         try:
-            field = "hope"
+            field = "cure"
             App.add_field(field)
             self.assertTrue(True)
         except:
@@ -169,7 +169,7 @@ class MyTestCase(unittest.TestCase):
     def test_update_rating(self):
         App.Database()
         try:
-            username = "ssss"
+            username = "kheer"
             rating = "3"
             global cursor
             App.update_rating(rating, username)

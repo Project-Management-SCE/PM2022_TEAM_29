@@ -381,7 +381,7 @@ def delete(usename):
 def delete_org(usename):
     Database()
     global cursor
-    cursor.execute("DELETE FROM 'volunteer' WHERE username=?", (usename,))
+    cursor.execute("DELETE FROM 'organization' WHERE username=?", (usename,))
     conn.commit()
 
 
@@ -389,7 +389,7 @@ def delete_org(usename):
 def delete_field(f):
     Database()
     global cursor
-    cursor.execute("DELETE FROM 'organization' WHERE hobby=?", (f,))
+    cursor.execute("DELETE FROM 'Fields' WHERE name=?", (f,))
     conn.commit()
 
 
@@ -411,14 +411,14 @@ def divide_donation(donation, username):
 def add_field(field):
     Database()
     global cursor
-    cursor.execute("UPDATE 'organization' SET hobby=? WHERE username=?", (field, "ssss",))
+    cursor.execute("INSERT INTO `Fields` (name,f) VALUES(?,?)", (field, "ok"))
     conn.commit()
 
 
 def update_rating(rating, username):
     Database()
     global cursor
-    cursor.execute("UPDATE 'organization' SET name=? WHERE username=?", (rating, username,))
+    cursor.execute("UPDATE 'organization' SET rating=? WHERE username=?", (rating, username,))
     conn.commit()
 
 
